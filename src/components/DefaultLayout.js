@@ -127,6 +127,12 @@ function DefaultLayout({ children }) {
       path: "/admin/jobs",
     },
     {
+      title: "Recruiters",
+      onClick: () => navigate("/admin/recruiters"),
+      icon: <i class="ri-user-follow-line"></i>,
+      path: "/admin/recruiters",
+    },
+    {
       title: "Users",
       onClick: () => navigate("/admin/users"),
       icon: <i className="ri-user-2-line"></i>,

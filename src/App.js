@@ -21,6 +21,7 @@ import JobDescription from "./pages/JobDescription";
 import Notifications from "./pages/Notifications";
 import MapPage from "./pages/MapPage";
 import UserProfile from "./pages/user/profile/UserProfile"
+import AllRecruiters from "./pages/admin/AllRecruiters";
 
 function App() {
   const { loading } = useSelector((state) => state.alert);
@@ -152,6 +153,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/admin/recruiters"
+            element={
+              <ProtectedRoute>
+                <AllRecruiters />
+              </ProtectedRoute>
+            }
+          />
+
           
         </Routes>
       </BrowserRouter>
