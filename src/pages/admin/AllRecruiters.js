@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import { message, Table } from "antd";
+import { Option } from "antd/lib/mentions";
+import { message, Select, Table } from "antd";
 import { useEffect } from "react";
 import {
   changeRecruiterStatusFromAdmin,
@@ -65,6 +65,10 @@ function AllRecruiters() {
       message.error(error.message);
     }
   };
+  const handleStatusChange = async (value, recruiterData) => {
+    await changeStatus(recruiterData, value);
+  };
+  
   const columns = [
     {
       title: "Name",
@@ -77,37 +81,32 @@ function AllRecruiters() {
     {
       title: "Company",
       dataIndex: "company_name",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
+    },{
+        title:   (text, record) => (
+            <Select
+              defaultValue={text}
+              style={{ width: 120 }}
+              onChange={(value) => handleStatusChange(value, record)}
+            >
+              <Option value="Accepted">Accepted</Option>
+              <Option value="Rejected">Rejected</Option>
+              <Option value="pending">Pending</Option>
+            </Select>
+          ),
+        dataIndex: "status",
+        
+      },
     {
       title: "Action",
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-2 align-items-center">
-          <i
-            className="ri-delete-bin-line"
-            onClick={() => deleteRecruiter(record.user.id)}
-          ></i>
-          {record.status === "approved" && (
-            <span
-              className="underline"
-              onClick={() => changeStatus(record, "rejected")}
-            >
-              Reject
-            </span>
-          )}
-
-          {(record.status === "pending" || record.status === "rejected") && (
-            <span
-              className="underline"
-              onClick={() => changeStatus(record, "approved")}
-            >
-              Approve
-            </span>
-          )}
+            <i className="ri-check-line"
+              onClick={() => changeStatus(record, "approved")}></i>
+            <i className="ri-close-line"
+              onClick={() => changeStatus(record, "rejected")}></i>
+            <i className="ri-delete-bin-line" 
+            onClick={() => deleteRecruiter(record.id)}></i>
         </div>
       ),
     },
