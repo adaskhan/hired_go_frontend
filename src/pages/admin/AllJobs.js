@@ -71,19 +71,16 @@ function AllJobs() {
     },
     {
       title: "Company",
-      dataIndex: "company",
+      dataIndex: "company_name_id",
+      render: company => company?.company_name
     },
     {
       title: "Posted On",
-      dataIndex: "postedOn",
+      dataIndex: "start_date",
     },
     {
       title: "Last Date to Apply",
-      dataIndex: "lastDateToApply",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
+      dataIndex: "end_date",
     },
     {
       title: "Action",

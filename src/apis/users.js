@@ -14,6 +14,7 @@ import {
     SetUnreadNotifications,
   } from "../redux/notifications";
   import store from "../redux/store";
+  import axios from 'axios';
   
   export const updateUserProfile = async (payload) => {
     console.log(payload);
@@ -58,14 +59,15 @@ import {
   
   export const getAllUsers = async () => {
     try {
-      const users = [];
-      const querySnapshot = await getDocs(collection(fireDB, "users"));
-      querySnapshot.forEach((doc) => {
-        users.push({ id: doc.id, ...doc.data() });
+      const userr = JSON.parse(localStorage.getItem("user"));
+      const response = await axios.get(`http://localhost:8000/api/view_applicants/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, 
+        },
       });
       return {
         success: true,
-        data: users,
+        data: response.data,
       };
     } catch (error) {
       return {

@@ -42,11 +42,11 @@ function Allusers() {
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: "user_first_name",
     },
     {
       title: "Email",
-      dataIndex: "email",
+      dataIndex: "user_email",
     },
     {
       title: "User Id",
@@ -54,28 +54,19 @@ function Allusers() {
     },
     {
         title: "Status",
-        dataIndex: "status",
+        dataIndex: "type",
     },
     {
       title: "Action",
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-2 align-items-center">
-          {record.status === "approved" && (
+          {(
             <span
               className="underline"
               onClick={() => changeStatus(record.id, "rejected")}
             >
-              Reject
-            </span>
-          )}
-
-          {(record.status === "pending" || record.status === "rejected") && (
-            <span
-              className="underline"
-              onClick={() => changeStatus(record.id, "approved")}
-            >
-              Approve
+              Delete
             </span>
           )}
         </div>
