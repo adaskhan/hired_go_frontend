@@ -80,11 +80,16 @@ import {
     }
   };
   export const deleteRecruiterById = async (id) => {
+    const userr = JSON.parse(localStorage.getItem("user"));
     try {
-      await deleteDoc(doc(fireDB, "users", id));
+      const response = await axios.delete(`http://localhost:8000/api/delete_recruiters/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, 
+        },
+      });
       return {
         success: true,
-        message: "Recruiter deleted successfully",
+        data: response.data,
       };
     } catch (error) {
       return {

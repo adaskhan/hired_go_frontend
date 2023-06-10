@@ -32,11 +32,12 @@ function AllRecruiters() {
   const deleteRecruiter = async (id) => {
     try {
       dispatch(ShowLoading());
-
+  
       const response = await deleteRecruiterById(id);
       if (response.success) {
-        setData(response.data);
-        getData();
+        const updatedUsers = data.filter(user => user.user.id !== id);
+        setData(updatedUsers);
+        message.success("Recruiter successfully deleted.");
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -44,6 +45,7 @@ function AllRecruiters() {
       message.error(error.message);
     }
   };
+  
 
   const changeStatus = async (recruiterData, status) => {
     try {
@@ -87,7 +89,7 @@ function AllRecruiters() {
         <div className="d-flex gap-2 align-items-center">
           <i
             className="ri-delete-bin-line"
-            onClick={() => deleteRecruiter(record.id)}
+            onClick={() => deleteRecruiter(record.user.id)}
           ></i>
           {record.status === "approved" && (
             <span

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { editJobDetails } from "../../apis/jobs";
 import { HideLoading, ShowLoading } from "../../redux/alertSlice";
 import PageTitle from "../../components/PageTitle";
-import { getAllUsers, updateUserProfile } from "../../apis/users";
+import { getAllUsers, deleteUserProfile } from "../../apis/users";
 
 function Allusers() {
   const dispatch = useDispatch();
@@ -24,14 +24,15 @@ function Allusers() {
     }
   };
 
-  const changeStatus = async (id, status) => {
+  const deleteUser = async (id) => {
     try {
       dispatch(ShowLoading());
 
-      const response = await updateUserProfile({ id, status });
+      const response = await deleteUserProfile(id);
       if (response.success) {
-        setData(response.data);
-        getData();
+        const updatedUsers = data.filter(user => user.id !== id);
+        setData(updatedUsers);
+        message.success("User successfully deleted.");
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -39,6 +40,8 @@ function Allusers() {
       message.error(error.message);
     }
   };
+
+
   const columns = [
     {
       title: "Name",
@@ -64,7 +67,7 @@ function Allusers() {
           {(
             <span
               className="underline"
-              onClick={() => changeStatus(record.id, "rejected")}
+              onClick={() => deleteUser(record.id, "rejected")}
             >
               Delete
             </span>

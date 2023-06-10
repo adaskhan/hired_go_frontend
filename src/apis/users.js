@@ -33,6 +33,26 @@ import {
       };
     }
   };
+
+  export const deleteUserProfile = async (id) => {
+    const userr = JSON.parse(localStorage.getItem("user"));
+    try {
+      const response = await axios.delete(`http://localhost:8000/api/delete_applicant/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, 
+        },
+      });
+      return {
+        success: true,
+        data: response.data,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: "Something went wrong",
+      };
+    }
+  };
   
   export const getUserProfile = async (id) => {
     try {
