@@ -162,47 +162,46 @@ export const LoginRecruiter = async (payload) => {
 
 };
 
-
-// export const RegisterUser = async (payload) => {
-//   try {
-//     const qry = query(
-//       collection(fireDB, "users"),
-//       where("email", "==", payload.email)
-//     );
-//     const querySnapshot = await getDocs(qry);
-//     if (querySnapshot.size > 0) {
-//       return {
-//         success: false,
-//         message: "Email already exists",
-//       };
-//     }
-//     const encryptedPassword = CryptoJS.AES.encrypt(
-//       payload.password,
-//       "sheyjobs-lite"
-//     ).toString();
-//     payload.password = encryptedPassword;
-
-//     const response = await addDoc(collection(fireDB, "users"), payload);
-//     return {
-//       success: true,
-//       message: "User Registered Successfully",
-//       data: response,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       message: error.message,
-//       data: null,
-//     };
-//   }
-// };
-
-
 export const RegisterUser = async (payload) => {
   try {
     const response = await fetch('http://localhost:8000/api/user_signup/', {
       method: 'POST',
       body: payload
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.id) {
+      return {
+        success: true,
+        message: 'User Registered Successfully',
+        data: data,
+      };
+    } else {
+      return {
+        success: false,
+        message: data.detail || 'Registration failed',
+        data: null,
+      };
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+      data: null,
+    };
+  }
+};
+
+export const RegisterRecruiter = async (payload) => {
+  try {
+    const response = await fetch('http://localhost:8000/api/recruiter_signup/', {
+      method: 'POST',
+      body: payload,
     });
 
     if (!response.ok) {

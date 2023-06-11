@@ -16,10 +16,10 @@ function AllJobs({}) {
   const dispatch = useDispatch();
   const [data, setData] = React.useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState({ title: "", description: "" });
+  const [modalData, setModalData] = useState({ title: "", description: "", location: "", salary: "", vacancy_type: "", skills: "", company_name: "", experience: "" });
 
-  const openModal = (title, description) => {
-    setModalData({ title, description });
+  const openModal = (title, description, location, salary, vacancy_type, skills, company_name, experience) => {
+    setModalData({ title, description, location, salary, vacancy_type, skills, company_name, experience });
     setShowModal(true);
   };
   const getData = async () => {
@@ -77,7 +77,7 @@ function AllJobs({}) {
       render: (text, record) => (
         <span
           className="title-link"
-          onClick={() => openModal(record.title, record.description)}
+          onClick={() => openModal(record.title, record.description, record.location, record.salary, record.vacancy_type, record.skills, record.company_name, record.experience)}
         >
           {text}
         </span>
@@ -130,6 +130,11 @@ function AllJobs({}) {
           width={800} // Set the width of the modal as per your design
         >
           <div>{modalData.description}</div>
+          <div>{modalData.location}</div>
+          <div>{modalData.salary} теңге</div>
+          <div>{modalData.skills}</div>
+          <div>{modalData.company_name}</div>
+          <div>{modalData.experience}</div>
         </Modal>
       )}
     </div>
