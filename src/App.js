@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AppliedJobs from "./pages/user/AppliedJobs";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import RecruiterRegister from './pages/RecruiterRegister'
 import { useSelector } from "react-redux";
 import Loader from "./components/Loader";
 import "./stylesheets/custom-components.css";
@@ -44,6 +45,14 @@ function App() {
             element={
               <PublicRoute>
                 <Register />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path='/recruiter_register'
+            element={
+              <PublicRoute>
+                <RecruiterRegister />
               </PublicRoute>
             }
           />

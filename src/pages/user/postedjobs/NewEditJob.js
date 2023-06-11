@@ -86,6 +86,7 @@ function NewEditJob() {
                 <option value="Python">Python</option>
                 <option value="Java">Java</option>
                 <option value="JavaScript">JavaScript</option>
+                <option value="JavaScript">Other</option>
               </select>
             </Form.Item>
           </Col>

@@ -55,7 +55,7 @@ function LoginAsRecruiter() {
           <Button className="primary-contained-btn w-100 mt-2" type="primary" htmlType="submit">
             Login
           </Button>
-          <Link to="/register" className="d-block mt-2">
+          <Link to="/recruiter_register" className="d-block mt-2">
             Not a member? Click here to register
           </Link>
         </Form>
