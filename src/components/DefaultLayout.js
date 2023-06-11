@@ -44,6 +44,12 @@ function DefaultLayout({ children }) {
       path: "/profile",
     },
     {
+      title: "Resumes",
+      onClick: () => navigate("/my-resumes"),
+      icon: <i class="ri-profile-line"></i>,
+      path: "/my-resumes",
+    },
+    {
       title: "Map",
       onClick: () => navigate("/map"),
       icon: <i className="ri-map-pin-line"></i>,
