@@ -1,22 +1,27 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import { message, Table } from "antd";
-import { useEffect } from "react";
+import { Button, message, Table,Modal } from "antd";
+import { useEffect, useState } from "react";
 import {
   changeJobStatusFromAdmin,
   deleteJobById,
-  editJobDetails,
   getAllVacancies,
 } from "../../apis/jobs";
 import { HideLoading, ShowLoading } from "../../redux/alertSlice";
 import PageTitle from "../../components/PageTitle";
 
-function AllJobs() {
+function AllJobs({}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = React.useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState({ title: "", description: "" });
+
+  const openModal = (title, description) => {
+    setModalData({ title, description });
+    setShowModal(true);
+  };
   const getData = async () => {
     try {
       dispatch(ShowLoading());
@@ -68,6 +73,14 @@ function AllJobs() {
     {
       title: "Title",
       dataIndex: "title",
+      render: (text, record) => (
+        <span
+          className="title-link"
+          onClick={() => openModal(record.title, record.description)}
+        >
+          {text}
+        </span>
+      ),
     },
     {
       title: "Company",
@@ -87,27 +100,12 @@ function AllJobs() {
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-2 align-items-center">
-          <i
-            className="ri-delete-bin-line"
-            onClick={() => deleteJob(record.id)}
-          ></i>
-          {record.status === "approved" && (
-            <span
-              className="underline"
-              onClick={() => changeStatus(record, "rejected")}
-            >
-              Reject
-            </span>
-          )}
-
-          {(record.status === "pending" || record.status === "rejected") && (
-            <span
-              className="underline"
-              onClick={() => changeStatus(record, "approved")}
-            >
-              Approve
-            </span>
-          )}
+          <i className="ri-check-line"
+          onClick={() => changeStatus(record, "approved")}></i>
+        <i className="ri-close-line"
+          onClick={() => changeStatus(record, "rejected")}></i>
+        <i className="ri-delete-bin-line"
+            onClick={() => deleteJob(record.id)}></i> 
         </div>
       ),
     },
@@ -121,15 +119,20 @@ function AllJobs() {
     <div>
       <div className="d-flex justify-content-between">
         <PageTitle title="All Jobs" />
-        <button
-          className="primary-outlined-btn"
-          onClick={() => navigate("/posted-jobs/new")}
-        >
-          New Job
-        </button>
       </div>
 
       <Table columns={columns} dataSource={data} />
+      {showModal && (
+        <Modal
+          title={modalData.title}
+          visible={true} 
+          onCancel={() => setShowModal(false)}
+          footer={null}
+          width={800} // Set the width of the modal as per your design
+        >
+          <div>{modalData.description}</div>
+        </Modal>
+      )}
     </div>
   );
 }
