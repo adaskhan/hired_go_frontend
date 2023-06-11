@@ -1,4 +1,5 @@
 import axios from "axios";
+import {   message } from "antd";
 
 export const LoginUser = async (payload) => {
   try {
@@ -148,17 +149,17 @@ export const LoginRecruiter = async (payload) => {
         },
       };
     }
-
     return {
       success: false,
       message: "Incorrect email or password",
     };
   } catch (error) {
-    return {
-      success: false,
-      message: "Server error",
-    };
-  }
+        return {
+          success: false,
+          message: error.response.data || "Server error",
+        };
+}
+
 };
 
 

@@ -16,12 +16,27 @@ function LoginAsRecruiter() {
       if (response.success) {
         message.success(response.message);
         navigate('/');
-      } else {
-        message.error(response.message);
-      }
+      } 
     } catch (error) {
-      dispatch(HideLoading());
-      message.error(error.message);
+      if (error.response) {
+        console.log(error.response.data);
+        return {
+          success: false,
+          message: error.response.data,
+        };
+    } else if (error.request) {
+        console.log(error.request);
+        return {
+          success: false,
+          message: "No response received from server",
+        };
+    } else {
+        console.log('Error', error.message);
+        return {
+          success: false,
+          message: "Request setup triggered an error",
+        };
+    }
     }
   };
   

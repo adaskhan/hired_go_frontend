@@ -11,6 +11,7 @@ import {
 } from "../../apis/recruiters";
 import { HideLoading, ShowLoading } from "../../redux/alertSlice";
 import PageTitle from "../../components/PageTitle";
+import axios from 'axios';
 
 function AllRecruiters() {
   const navigate = useNavigate();
@@ -47,17 +48,36 @@ function AllRecruiters() {
   };
   
 
-  const changeStatus = async (recruiterData, status) => {
+  const changeStatus = async (recruiterData, newStatus) => {
     try {
       dispatch(ShowLoading());
-
+  
+      const statusMap = {
+        "approved": "Accepted",
+        "rejected": "Rejected",
+      };
+  
+      const apiStatus = statusMap[newStatus];
+  
       const response = await changeRecruiterStatusFromAdmin({
         ...recruiterData,
-        status,
+        status: apiStatus, // Update the status to the new value
       });
       if (response.success) {
-        setData(response.data);
-        getData();
+        const updatedRecruiter = response.data;
+        console.log('recruiterData:', recruiterData); // Added this line
+        console.log('updatedRecruiter:', updatedRecruiter); // Added this line
+        console.log('recruiterData.user:', recruiterData.user); // Added this line
+        console.log('updatedRecruiter.user:', updatedRecruiter.user); // Added this line
+
+        const updatedData = data.map(recruiter => 
+          recruiter.user.id === recruiterData.user.id ? {...recruiter, status: updatedRecruiter.status} : recruiter
+        );
+
+  
+        setData(updatedData);
+  
+        message.success(`Recruiter status successfully updated to ${newStatus}.`);
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -65,9 +85,123 @@ function AllRecruiters() {
       message.error(error.message);
     }
   };
-  const handleStatusChange = async (value, recruiterData) => {
-    await changeStatus(recruiterData, value);
+  
+
+  const getPendingRecruiters = async () => {
+    try {
+      const userr = JSON.parse(localStorage.getItem("user"));
+      const response = await axios.get(`http://127.0.0.1:8000/api/pending_recruiters/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+        },
+      });
+  
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          message: "No such recruiter!",
+        };
+      }
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        message: "Something went wrong",
+      };
+    }
   };
+
+  const getAcceptedRecruiters = async () => {
+    try {
+      const userr = JSON.parse(localStorage.getItem("user"));
+      const response = await axios.get(`http://127.0.0.1:8000/api/accepted_recruiters/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+        },
+      });
+  
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          message: "No such recruiter!",
+        };
+      }
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        message: "Something went wrong",
+      };
+    }
+  };
+
+  const getRejectedRecruiters = async () => {
+    try {
+      const userr = JSON.parse(localStorage.getItem("user"));
+      const response = await axios.get(`http://127.0.0.1:8000/api/rejected_recruiters/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+        },
+      });
+  
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          message: "No such recruiter!",
+        };
+      }
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        message: "Something went wrong",
+      };
+    }
+  };
+
+  const statusApiMap = {
+    "pending": getPendingRecruiters,
+    "Accepted": getAcceptedRecruiters,
+    "Rejected": getRejectedRecruiters,
+  };
+
+  // Adjust handleStatusChange to use the map and make a GET request
+const handleStatusChange = async (value, recruiterData) => {
+  // Get the function for the selected status
+  const statusFunction = statusApiMap[value];
+
+  // If the function exists, call it
+  if (statusFunction) {
+    try {
+      const response = await statusFunction();
+
+      // If the response is successful, update the displayed data
+      if (response.success) {
+        setData(response.data);
+        message.success(`Successfully fetched ${value} recruiters.`);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  }
+};
+
+
   
   const columns = [
     {
@@ -81,7 +215,8 @@ function AllRecruiters() {
     {
       title: "Company",
       dataIndex: "company_name",
-    },{
+    },
+    {
         title:   (text, record) => (
             <Select
               defaultValue={text}
@@ -101,12 +236,16 @@ function AllRecruiters() {
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-2 align-items-center">
-            <i className="ri-check-line"
-              onClick={() => changeStatus(record, "approved")}></i>
-            <i className="ri-close-line"
-              onClick={() => changeStatus(record, "rejected")}></i>
+            {record.status === 'pending' && (
+              <>
+                <i className="ri-check-line"
+                  onClick={() => changeStatus(record, "approved")}></i>
+                <i className="ri-close-line"
+                  onClick={() => changeStatus(record, "rejected")}></i>
+              </>
+            )}
             <i className="ri-delete-bin-line" 
-            onClick={() => deleteRecruiter(record.id)}></i>
+            onClick={() => deleteRecruiter(record.user.id)}></i>
         </div>
       ),
     },

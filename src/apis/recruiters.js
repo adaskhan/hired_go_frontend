@@ -100,25 +100,32 @@ import {
   };
   export const changeRecruiterStatusFromAdmin = async (payload) => {
     try {
-      console.log(payload);
-      await updateDoc(doc(fireDB, "recruiters", payload.id), {
-        ...payload,
-        updatedOn: moment().format("DD-MM-YYYY HH:mm A"),
-      });
+      const userr = JSON.parse(localStorage.getItem("user"));
 
-      await addDoc(
-        collection(fireDB, "users", payload.postedByUserId, "notifications"),
+      // Make a PATCH request to the change status API
+      const response = await axios.patch(`http://127.0.0.1:8000/api/change_status/${payload.user.id}/`, 
         {
-          title: `Your recruiter post request for ${payload.title} has been ${payload.status}`,
-          onClick: `/`,
-          createdAt: moment().format("DD-MM-YYYY HH:mm A"),
-          status: "unread",
+          status: payload.status,
+        }, 
+        {
+          headers: {
+            Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+          },
         }
       );
-      return {
-        success: true,
-        message: "Job updated successfully",
-      };
+      
+      if(response.status === 200) {
+        return {
+          success: true,
+          message: "Status updated successfully",
+          data: response.data // if API returns the updated object
+        };
+      } else {
+        return {
+          success: false,
+          message: "Update failed",
+        };
+      }
     } catch (error) {
       console.log(error);
       return {
@@ -126,7 +133,8 @@ import {
         message: "Something went wrong",
       };
     }
-  };
+};
+
   export const changeNotificationStatus = async (id, status) => {
     const user = JSON.parse(localStorage.getItem("user"));
     try {

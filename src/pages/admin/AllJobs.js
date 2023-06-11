@@ -33,18 +33,19 @@ function AllJobs() {
   const deleteJob = async (id) => {
     try {
       dispatch(ShowLoading());
-
+  
       const response = await deleteJobById(id);
       if (response.success) {
-        setData(response.data);
-        getData();
+        const updatedJobs = data.filter(job => job.id !== id);
+        setData(updatedJobs);
+        message.success("Vacancy successfully deleted.");
       }
       dispatch(HideLoading());
     } catch (error) {
       dispatch(HideLoading());
       message.error(error.message);
     }
-  };
+  };  
 
   const changeStatus = async (jobData, status) => {
     try {
@@ -91,23 +92,6 @@ function AllJobs() {
             className="ri-delete-bin-line"
             onClick={() => deleteJob(record.id)}
           ></i>
-          {record.status === "approved" && (
-            <span
-              className="underline"
-              onClick={() => changeStatus(record, "rejected")}
-            >
-              Reject
-            </span>
-          )}
-
-          {(record.status === "pending" || record.status === "rejected") && (
-            <span
-              className="underline"
-              onClick={() => changeStatus(record, "approved")}
-            >
-              Approve
-            </span>
-          )}
         </div>
       ),
     },

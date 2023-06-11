@@ -50,6 +50,12 @@ function DefaultLayout({ children }) {
       path: "/map",
     },
     {
+      title: "Search",
+      onClick: () => window.location.href="http://127.0.0.1:8000/api/hired_fast/search/",
+      icon: <i className="ri-search-line"></i>, // Change to the appropriate icon
+      path: "http://127.0.0.1:8000/api/hired_fast/search/",
+    },
+    {
       title: "Logout",
       onClick: () => {
         localStorage.removeItem("user");

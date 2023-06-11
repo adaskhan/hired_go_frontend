@@ -13,36 +13,45 @@ import {
   import moment from "moment";
   import { fireDB } from "../firebeaseConfig";
   import axios from 'axios';
-  
-  export const addNewJobPost = async (payload) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    try {
-      await addDoc(collection(fireDB, "jobs"), {
-        ...payload,
-        status: "pending",
-        postedByUserId: user.id,
-        postedByUserName: user.name,
-        postedOn: moment().format("DD-MM-YYYY HH:mm A"),
-      });
-  
-      await addDoc(collection(fireDB, "users", "admin", "notifications"), {
-        title: `New Job Post Request from ${user.name}`,
-        onClick: `/admin/jobs`,
-        createdAt: moment().format("DD-MM-YYYY HH:mm A"),
-        status: "unread",
-      });
+
+export const addNewJobPost = async (payload) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const data = {
+    ...payload,
+    company_name_id: user.recruiter_id.id
+  }
+  console.log(data);
+
+  try {
+    const userr = JSON.parse(localStorage.getItem("user"));
+    const response = await axios.post('http://127.0.0.1:8000/api/add_vacancies/', data, {
+      headers: {
+        'Authorization': `Bearer ${userr.access}`,
+        'Content-Type': 'application/json' // Pass the access token in the headers
+      },
+    });
+    if (response.status === 200 || response.status === 201) {
       return {
         success: true,
         message: "Job posted successfully",
       };
-    } catch (error) {
-      console.log(error);
+    } else {
+      console.log(response.data);
       return {
         success: false,
-        message: "Something went wrong",
+        message: response.data.error || "Something went wrong",
       };
     }
-  };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: error.message || "Something went wrong",
+    };
+  }
+};
+
   
   export async function getPostedJobsByUserId(userId) {
     const userr = JSON.parse(localStorage.getItem("user"));
@@ -165,11 +174,16 @@ export const getJobById = async (id) => {
   };
   
   export const deleteJobById = async (id) => {
+    const userr = JSON.parse(localStorage.getItem("user"));
     try {
-      await deleteDoc(doc(fireDB, "jobs", id));
+      const response = await axios.delete(`http://localhost:8000/api/delete_vacancy/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, 
+        },
+      });
       return {
         success: true,
-        message: "Job deleted successfully",
+        data: response.data,
       };
     } catch (error) {
       return {
