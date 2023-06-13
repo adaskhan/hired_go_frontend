@@ -42,24 +42,6 @@ export const addNewResume = async (payload) => {
     }
   };
 
-  export const editResumeDetails = async (payload) => {
-    console.log(payload);
-    try {
-      await updateDoc(doc(fireDB, "jobs", payload.id), {
-        ...payload,
-        updatedOn: moment().format("DD-MM-YYYY HH:mm A"),
-      });
-      return {
-        success: true,
-        message: "Resume updated successfully",
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: "Something went wrong",
-      };
-    }
-  };
 
   export const getResumeById = async () => {
     try {

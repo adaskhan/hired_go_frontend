@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, message, Table } from "antd";
-import { editResumeDetails, getResumeById } from "../../../apis/resumes";
+import { getResumeById } from "../../../apis/resumes";
 import { HideLoading, ShowLoading } from "../../../redux/alertSlice";
 import PageTitle from "../../../components/PageTitle";
 
@@ -25,24 +25,6 @@ function ListOfResume() {
     }
   };
 
-  const changeStatus = async (resumeData, status) => {
-    try {
-      dispatch(ShowLoading());
-
-      const response = await editResumeDetails({
-        ...resumeData,
-        status,
-      });
-      if (response.success) {
-        setData(response.data);
-        getData();
-      }
-      dispatch(HideLoading());
-    } catch (error) {
-      dispatch(HideLoading());
-      message.error(error.message);
-    }
-  };
 
   const columns = [
     {

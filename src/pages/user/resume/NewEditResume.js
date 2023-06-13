@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { HideLoading, ShowLoading } from '../../../redux/alertSlice';
-import { addNewResume, editResumeDetails, getResumeById } from '../../../apis/resumes';
+import { addNewResume, getResumeById } from '../../../apis/resumes';
 import PageTitle from '../../../components/PageTitle';
 
 function NewEditResume() {
@@ -12,30 +12,7 @@ function NewEditResume() {
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const[resumeData,setResumeData]=React.useState(null);
-  const onFinish=async(values)=>{
-    try {
-      dispatch(ShowLoading());
-      let response = null;
-      if (params.id) {
-        response = await editResumeDetails({
-          ...values,
-          id: params.id,
-        });
-      } else {
-        response = await addNewResume(values);
-      }
-      if (response.success) {
-        message.success(response.message);
-        navigate("/my-resumes");
-      } else {
-        message.error(response.message);
-      }
-      dispatch(HideLoading());
-    } catch (error) {
-      dispatch(HideLoading());
-      message.error(error.message);
-    }
-  }
+  
   const getData = async () => {
     try {
       dispatch(ShowLoading());
@@ -62,7 +39,7 @@ function NewEditResume() {
     <div>
       <PageTitle title={params.id ? "Edit Resume" : ""} />
       {resumeData && (
-        <Form layout="vertical" onFinish={onFinish} initialValues={resumeData}>
+        <Form layout="vertical" initialValues={resumeData}>
         <Row gutter={[10, 10]}>
           <Col span={12}>
             <Form.Item
