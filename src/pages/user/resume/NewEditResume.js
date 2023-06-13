@@ -26,7 +26,7 @@ function NewEditResume() {
       }
       if (response.success) {
         message.success(response.message);
-        navigate("/posted-jobs");
+        navigate("/my-resumes");
       } else {
         message.error(response.message);
       }
@@ -60,7 +60,7 @@ function NewEditResume() {
   }, []);
   return (
     <div>
-      <PageTitle title={params.id ? "Edit Resume" : "Add New Resume"} />
+      <PageTitle title={params.id ? "Edit Resume" : ""} />
       {resumeData && (
         <Form layout="vertical" onFinish={onFinish} initialValues={resumeData}>
         <Row gutter={[10, 10]}>
@@ -163,21 +163,11 @@ function NewEditResume() {
           </>
         )}
       </Form.List>
-      <Form.List name="educations">
+      <Form.List name="education">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
               <Row gutter={[10, 10]} align="middle">
-                <Col span={8}>
-                  <Form.Item
-                    {...restField}
-                    name={[name, "institution"]}
-                    rules={[{ required: true, message: "required" }]}
-                    label="Institution"
-                  >
-                    <input type="text" />
-                  </Form.Item>
-                </Col>
                 <Col span={8}>
                   <Form.Item
                     {...restField}
@@ -191,29 +181,21 @@ function NewEditResume() {
                 <Col span={8}>
                   <Form.Item
                     {...restField}
-                    name={[name, "field_of_study"]}
+                    name={[name, "institution"]}
                     rules={[{ required: true, message: "required" }]}
-                    label="Field of study"
+                    label="Institution"
                   >
                     <input type="text" />
                   </Form.Item>
                 </Col>
-                <Col span={5}>
+                <Col span={4}>
                   <Form.Item
-                    label="Start Date"
-                    name="start_date"
+                    {...restField}
+                    name={[name, "percentage"]}
                     rules={[{ required: true, message: "required" }]}
+                    label="Percentage"
                   >
-                    <input type="date" />
-                  </Form.Item>
-                </Col>
-                <Col span={5}>
-                  <Form.Item
-                    label="End Date"
-                    name="end_date"
-                    rules={[{ required: true, message: "required" }]}
-                  >
-                    <input type="date" /> 
+                    <input type="text" />
                   </Form.Item>
                 </Col>
                 <i class="ri-delete-bin-line" onClick={() => remove(name)}></i>
@@ -230,7 +212,7 @@ function NewEditResume() {
         <div className="d-flex justify-content-end gap-2">
           <button
             className="primary-outlined-btn"
-            onClick={() => navigate("/posted-jobs")}
+            onClick={() => navigate("/resumes")}
           >
             Cancel
           </button>
