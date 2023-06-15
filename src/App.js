@@ -24,6 +24,7 @@ import MapPage from "./pages/MapPage";
 import UserProfile from "./pages/user/profile/UserProfile"
 import AllRecruiters from "./pages/admin/AllRecruiters";
 import NewEditResume from "./pages/user/resume/NewEditResume";
+import Resumes from "./pages/user/resume";
 
 function App() {
   const { loading } = useSelector((state) => state.alert);
@@ -115,6 +116,15 @@ function App() {
           />
 
           <Route
+            path="/my-resumes/new"
+            element={
+              <ProtectedRoute>
+                <NewEditResume />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/posted-jobs/new"
             element={
               <ProtectedRoute>
@@ -134,7 +144,7 @@ function App() {
             path="/my-resumes"
             element={
               <ProtectedRoute>
-                <NewEditResume />
+                <Resumes />
               </ProtectedRoute>
             }
           />

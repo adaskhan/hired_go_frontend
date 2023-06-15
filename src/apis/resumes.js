@@ -67,7 +67,7 @@ export const addNewResume = async (payload) => {
   export const getResumeById = async (id) => {
     try {
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/resume_detail_api/${id}/`, {
+      const response = await axios.get(`http://127.0.0.1:8000/api/get_resumes/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
         },
@@ -93,5 +93,35 @@ export const addNewResume = async (payload) => {
     }
   };
 
+  
+  export const getResumesById = async (id) => {
+    try {
+      const userr = JSON.parse(localStorage.getItem("user"));
+      const response = await axios.get(`http://127.0.0.1:8000/api/resume_detail/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+        },
+      });
+  
+      if (response.status === 200) {
+        return {
+          success: true,
+          data: response.data,
+        };
+      } else {
+        return {
+          success: false,
+          message: "No such job!",
+        };
+      }
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        message: "Something went wrong",
+      };
+    }
+  };
+  
 
   

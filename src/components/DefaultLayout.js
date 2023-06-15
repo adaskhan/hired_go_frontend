@@ -45,7 +45,7 @@ function DefaultLayout({ children }) {
     },
     {
       title: "Resumes",
-      onClick: () => navigate("/my-resumes"),
+      onClick: () => navigate("/my-resumes/"),
       icon: <i class="ri-profile-line"></i>,
       path: "/my-resumes",
     },
