@@ -15,13 +15,12 @@ function NewEditResume() {
   const [resumeData, setResumeData] = React.useState(null);
 
   const onFinish = async (values) => {
-    console.log(values);
     try {
       dispatch(ShowLoading());
       const response = await addNewResume(values);
       if (response.success) {
         message.success(response.message);
-        navigate("/my-resumes");
+        // navigate("/my-resumes");
       } else {
         message.error(response.message);
       }

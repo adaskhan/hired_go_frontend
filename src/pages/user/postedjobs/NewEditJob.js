@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { addNewJobPost, editJobDetails, getJobById } from "../../../apis/jobs";
 import PageTitle from "../../../components/PageTitle";
 import { HideLoading, ShowLoading } from "../../../redux/alertSlice";
+import SelectSkills from '../resume/SelectSkills';
 
 function NewEditJob() {
   const params = useParams();
@@ -168,7 +169,7 @@ function NewEditJob() {
               name="skills"
               rules={[{ required: true, message: "required" }]}
             >
-              <input type="text" />
+              <SelectSkills />
             </Form.Item>
           </Col>
 

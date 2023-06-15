@@ -11,8 +11,7 @@ export const addNewResume = async (payload) => {
   const data = {
     ...payload,
   }
-  console.log("Payload: ", payload);  // Debug line
-  console.log("Data: ", data);  // Debug line
+  console.log("Data: ", data.skills);  // Debug line
 
   try {
     const userr = JSON.parse(localStorage.getItem("user"));
