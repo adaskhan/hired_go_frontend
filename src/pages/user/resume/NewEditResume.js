@@ -8,13 +8,13 @@ import { addNewResume, getResumeById, getResumesById } from '../../../apis/resum
 import PageTitle from '../../../components/PageTitle';
 
 function NewEditResume() {
-  const params=useParams(); 
+  const params = useParams(); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [resumeData, setResumeData] = React.useState(null);
 
   const onFinish = async (values) => {
-    console.log('hello!')
+    console.log(values);
     try {
       dispatch(ShowLoading());
       const response = await addNewResume(values);
@@ -59,6 +59,17 @@ function NewEditResume() {
       <PageTitle title={'Create resume'} />
       {resumeData && (
         <Form layout="vertical" onFinish={onFinish} initialValues={resumeData}>
+          <div className="d-flex justify-content-end gap-2">
+            <button
+              className="primary-outlined-btn"
+              // onClick={() => navigate('/posted-jobs')}
+            > 
+              Cancel
+            </button>
+            <button className="primary-contained-btn" type="submit">
+              Save
+            </button>
+          </div>
           <Row gutter={[10, 10]}>
             <Col span={12}>
               <Form.Item
@@ -106,150 +117,132 @@ function NewEditResume() {
               </Form.Item>
             </Col>
           </Row>
-          <Form.List name="experinces">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Row gutter={[10, 10]} align="middle">
-                  <Col span={6}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, "company"]}
-                      rules={[{ required: true, message: "required" }]}
-                      label="Company"
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                  <Col span={5}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, "position"]}
-                      rules={[{ required: true, message: "required" }]}
-                      label="Position"
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                  <Col span={5}>
-                    <Form.Item
-                      label="Start Date"
-                      name="start_date"
-                      rules={[{ required: true, message: "required" }]}
-                    >
-                      <input type="date" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={5}>
-                    <Form.Item
-                      label="End Date"
-                      name="end_date"
-                      rules={[{ required: true, message: "required" }]}
-                    >
-                      <input type="date" />
-                    </Form.Item>
-                  </Col>
-                  <i class="ri-delete-bin-line" onClick={() => remove(name)}></i>
-                </Row>
-              ))}
-              <Form.Item>
-                <button 
-                  className="primary-outlined-btn" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    add();
-                  }}
+          <Form.List name="experiences">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Row gutter={[10, 10]} align="middle" key={key}>
+                    <Col span={6}>
+                      <Form.Item
+                        {...restField}
+                        name={[name, "company"]}
+                        rules={[{ required: true, message: "required" }]}
+                        label="Company"
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={5}>
+                      <Form.Item
+                        {...restField}
+                        name={[name, "position"]}
+                        rules={[{ required: true, message: "required" }]}
+                        label="Position"
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={5}>
+                      <Form.Item
+                        label="Start Date"
+                        name={[name, "start_date"]}
+                        rules={[{ required: true, message: "required" }]}
+                      >
+                        <input type="date" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={5}>
+                      <Form.Item
+                        label="End Date"
+                        name={[name, "end_date"]}
+                        rules={[{ required: true, message: "required" }]}
+                      >
+                        <input type="date" />
+                      </Form.Item>
+                    </Col>
+                    <i
+                      className="ri-delete-bin-line"
+                      onClick={() => remove(name)}
+                    ></i>
+                  </Row>
+                ))}
+                <Form.Item>
+                  <button 
+                    className="primary-outlined-btn" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      add();
+                    }}
                   >
-                  ADD EXPERINCE
-                </button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-            <Form.List name="education">
-              {(fields, { add, remove }) => (
-                <>
-                  {fields.map(({ key, name, ...restField }) => (
-                    <Row gutter={[10, 10]} align="middle" key={key}>
-                      <Col span={8}>
-                        <Form.Item
-                          {...restField}
-                          name={[name, 'degree']}
-                          rules={[{ required: true, message: 'required' }]}
-                          label="Degree"
-                        >
-                          <Input />
-                        </Form.Item>
-                      </Col>
-                      <Col span={8}>
-                        <Form.Item
-                          {...restField}
-                          name={[name, 'institution']}
-                          rules={[{ required: true, message: 'required' }]}
-                          label="Institution"
-                        >
-                          <Input />
-                        </Form.Item>
-                      </Col>
-                      {/* <Col span={4}>
-                        <Form.Item
-                          {...restField}
-                          name={[name, 'percentage']}
-                          rules={[{ required: true, message: 'required' }]}
-                          label="Percentage"
-                        >
-                          <input type="text" />
-                        </Form.Item>
-                      </Col> */}
-                      <Col span={5}>
-                    <Form.Item
-                      label="Start Date"
-                      name="start_date"
-                      rules={[{ required: true, message: "required" }]}
-                    >
-                      <input type="date" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={5}>
-                    <Form.Item
-                      label="End Date"
-                      name="end_date"
-                      rules={[{ required: true, message: "required" }]}
-                    >
-                      <input type="date" />
-                    </Form.Item>
-                  </Col>
-                      <i
-                        className="ri-delete-bin-line"
-                        onClick={() => remove(name)}
-                      ></i>
-                    </Row>
-                  ))}
-                  <Form.Item>
-                    <button
-                      className="primary-outlined-btn"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        add();
-                      }}
-                    >
-                      ADD EDUCATION
-                    </button>
-                  </Form.Item>
-                </>
-              )}
-            </Form.List>
-            <div className="d-flex justify-content-end gap-2">
-              <button
-                className="primary-outlined-btn"
-                // onClick={() => navigate('/posted-jobs')}
-              > 
-                Cancel
-              </button>
-              <button className="primary-contained-btn" type="submit" onClick={() => onFinish()}>
-                Save
-              </button>
-            </div>
+                    ADD EXPERIENCE
+                  </button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+          <Form.List name="education">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Row gutter={[10, 10]} align="middle" key={key}>
+                    <Col span={8}>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'degree']}
+                        rules={[{ required: true, message: 'required' }]}
+                        label="Degree"
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'institution']}
+                        rules={[{ required: true, message: 'required' }]}
+                        label="Institution"
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={5}>
+                      <Form.Item
+                        label="Start Date"
+                        name={[name, "start_date"]}
+                        rules={[{ required: true, message: "required" }]}
+                      >
+                        <input type="date" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={5}>
+                      <Form.Item
+                        label="End Date"
+                        name={[name, "end_date"]}
+                        rules={[{ required: true, message: "required" }]}
+                      >
+                        <input type="date" />
+                      </Form.Item>
+                    </Col>
+                    <i
+                      className="ri-delete-bin-line"
+                      onClick={() => remove(name)}
+                    ></i>
+                  </Row>
+                ))}
+                <Form.Item>
+                  <button
+                    className="primary-outlined-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      add();
+                    }}
+                  >
+                    ADD EDUCATION
+                  </button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
         </Form>
       )}
     </div>
