@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, message, Table } from "antd";
-import { getResumeById } from "../../../apis/resumes";
+import { addNewResume, getResumeById } from "../../../apis/resumes";
 import { HideLoading, ShowLoading } from "../../../redux/alertSlice";
 import PageTitle from "../../../components/PageTitle";
 
@@ -10,6 +10,23 @@ function ListOfResume() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
+
+
+  const onFinish = async (values) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await addNewResume(values);
+      dispatch(HideLoading());
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
 
   const getData = async () => {
     try {

@@ -9,7 +9,7 @@ export const addNewResume = async (payload) => {
   
     const data = {
       ...payload,
-      company_name_id: user.recruiter_id.id
+      company_name_id: user.user_id.id
     }
     console.log(data);
   

@@ -46,7 +46,7 @@ function DefaultLayout({ children }) {
     {
       title: "Resumes",
       onClick: () => navigate("/my-resumes/"),
-      icon: <i class="ri-profile-line"></i>,
+      icon: <i className="ri-profile-line"></i>,
       path: "/my-resumes",
     },
     {
@@ -141,7 +141,7 @@ function DefaultLayout({ children }) {
     {
       title: "Recruiters",
       onClick: () => navigate("/admin/recruiters"),
-      icon: <i class="ri-user-follow-line"></i>,
+      icon: <i className="ri-user-follow-line"></i>,
       path: "/admin/recruiters",
     },
     {

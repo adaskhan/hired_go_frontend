@@ -12,7 +12,6 @@ function NewEditResume() {
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const[resumeData,setResumeData]=React.useState(null);
-  
   const getData = async () => {
     try {
       dispatch(ShowLoading());
