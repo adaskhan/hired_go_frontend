@@ -6,6 +6,7 @@ import { useNavigate, useParams  } from 'react-router-dom';
 import { HideLoading, ShowLoading } from '../../../redux/alertSlice';
 import { addNewResume, getResumeById, getResumesById } from '../../../apis/resumes';
 import PageTitle from '../../../components/PageTitle';
+import SelectSkills from './SelectSkills';
 
 function NewEditResume() {
   const params = useParams(); 
@@ -20,7 +21,7 @@ function NewEditResume() {
       const response = await addNewResume(values);
       if (response.success) {
         message.success(response.message);
-        // navigate("/my-resumes");
+        navigate("/my-resumes");
       } else {
         message.error(response.message);
       }
@@ -62,7 +63,7 @@ function NewEditResume() {
           <div className="d-flex justify-content-end gap-2">
             <button
               className="primary-outlined-btn"
-              // onClick={() => navigate('/posted-jobs')}
+              onClick={() => navigate('/my-resumes')}
             > 
               Cancel
             </button>
@@ -104,7 +105,7 @@ function NewEditResume() {
                 name="skills"
                 rules={[{ required: true, message: "required" }]}
               >
-                <Input />
+                <SelectSkills />
               </Form.Item>
             </Col>
             <Col span={12}>
