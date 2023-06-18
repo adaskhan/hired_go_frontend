@@ -78,37 +78,31 @@ function AppliedCandidates({
   
 
   const changeStatus = async (applicationData, status) => {
-    try {
-      dispatch(ShowLoading());
-      const response = await changeApplicationStatus({
-        ...applicationData,
-        status,
-      });
       dispatch(HideLoading());
-  
-      let url = "";
-      if (status === "invite") {
-        url = `http://127.0.0.1:8000/api/invite_candidate/${applicationData.id}/`;
-      } else {
-        url = `http://127.0.0.1:8000/api/refuse_candidate/${applicationData.id}/`;
-      }
-  
-      const userr = JSON.parse(localStorage.getItem("user"));
-      await axios.post(
-        url,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${userr.access}`,
-          },
+      try{
+        let url = "";
+        if (status === "invite") {
+          url = `http://127.0.0.1:8000/api/invite_candidate/${applicationData.id}/`;
+        } else {
+          url = `http://127.0.0.1:8000/api/refuse_candidate/${applicationData.id}/`;
         }
+    
+        const userr = JSON.parse(localStorage.getItem("user"));
+        const response = await axios.post(
+          url,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${userr.access}`,
+            },
+          }
       );
   
       if (response.success) {
         message.success(response.message);
         reloadData(applicationData.jobId);  
       } else {
-        message.error(response.message);
+        message.error("Failed to change application status");
       }
     } catch (error) {
       message.error("Something went wrong");
@@ -126,10 +120,11 @@ function AppliedCandidates({
       title: "Name",
       dataIndex: ["applicant", "full_name"],
       render: (text, record) => (
-        <span className="title-link" onClick={() => openModal(record.resume.id)}>
+        <span key={record.id} className="title-link" onClick={() => openModal(record.resume.id)}>
           {text}
         </span>
       ),
+      
     },
     {
       title: "Phone",
@@ -182,6 +177,7 @@ function AppliedCandidates({
       },
     },
   ];
+  
 
   const fetchResumeData = async (id) => {
     try {
