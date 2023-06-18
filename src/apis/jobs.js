@@ -21,8 +21,11 @@ export const addNewJobPost = async (payload) => {
     ...payload,
     company_name_id: user.recruiter_id.id
   }
-  console.log(data);
+  console.log(data.skills);
 
+  const skills = data.skills;
+  const skillsString = skills.join(', ');
+  data.skills = skillsString;
   try {
     const userr = JSON.parse(localStorage.getItem("user"));
     const response = await axios.post('http://127.0.0.1:8000/api/add_vacancies/', data, {
