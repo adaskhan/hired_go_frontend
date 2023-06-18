@@ -1,4 +1,4 @@
-import { message, Modal, Table } from "antd";
+import { List, message, Modal, Table } from "antd";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,14 +15,53 @@ function AppliedCandidates({
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState({ title: "", experiences: "", educations: "", contacts: "", summary: "", skills: "", languages: "", created_date: "" });
+  const [modalData, setModalData] = useState({
+    title: "",
+    experiences: "",
+    educations: "",
+    contacts: "",
+    summary: "",
+    skills: "",
+    languages: "",
+    created_date: "",
+  });
 
-  const openModal = (title, experiences, educations, contacts, summary, skills, languages, created_date) => {
-    setModalData({ title, experiences, educations, contacts, summary, skills, languages, created_date });
-    setShowModal(true);
+  const openModal = async (id) => {
+    try {
+      dispatch(ShowLoading());
+  
+      // Make the API request to fetch resume data
+      const response = await fetch(`http://127.0.0.1:8000/api/get_resumes/${id}/`);
+  
+      dispatch(HideLoading());
+  
+      if (response.ok) {
+        const data = await response.json();
+        const { title, experiences, educations, contacts, summary, skills, languages, created_date } = data;
+  
+        setModalData({
+          title,
+          experiences,
+          educations,
+          contacts,
+          summary,
+          skills,
+          languages,
+          created_date: created_date.email,
+        });
+        setShowModal(true);
+      } else {
+        const errorData = await response.json();
+        message.error(errorData.message);
+      }
+    } catch (error) {
+      message.error("Something went wrong");
+      dispatch(HideLoading());
+    }
   };
+  
 
-  const changeStatus = async (applicationData ,  status) => {
+  const changeStatus = async (applicationData, status) => {
     try {
       dispatch(ShowLoading());
       const response = await changeApplicationStatus({
@@ -42,68 +81,6 @@ function AppliedCandidates({
     }
   };
 
-  // const columns = [
-  //   {
-  //     title: "Id",
-  //     dataIndex: "id",
-  //   },
-  //   {
-  //     title: "Name",
-  //     dataIndex: "userName",
-  //     render: (text, record) => {
-  //       return (
-  //         <span
-  //           className="underline"
-  //           onClick={() => navigate(`/profile/${record.userId}`)}
-  //         >
-  //           {text}
-  //         </span>
-  //       );
-  //     },
-  //   },
-  //   {
-  //     title: "Email",
-  //     dataIndex: "email",
-  //   },
-  //   {
-  //     title: "Phone",
-  //     dataIndex: "phoneNumber",
-  //   },
-  //   {
-  //     title: "Status",
-  //     dataIndex: "status",
-  //   },
-  //   {
-  //     title: "Action",
-  //     dataIndex: "action",
-  //     render: (text, record) => {
-  //       return (
-  //         <div>
-  //           {record.status === "pending" && (
-  //             <>
-  //               <span
-  //                 className="underline"
-  //                 onClick={() =>
-  //                   changeStatus(record, "approved")
-  //                 }
-  //               >
-  //                 Approve
-  //               </span>
-  //               <span
-  //                 className="underline mx-2"
-  //                 onClick={() =>
-  //                   changeStatus(record , "rejected")
-  //                 }
-  //               >
-  //                 Reject
-  //               </span>
-  //             </>
-  //           )}
-  //         </div>
-  //       );
-  //     },
-  //   },
-  // ];
   const columns = [
     {
       title: "Id",
@@ -111,23 +88,20 @@ function AppliedCandidates({
     },
     {
       title: "Name",
-      dataIndex: ["applicant", "full_name"], // Accessing nested data
+      dataIndex: ["applicant", "full_name"],
       render: (text, record) => (
-        <span
-          className="title-link"
-          onClick={() => openModal(record.title, record.experiences, record.educations, record.contacts, record.summary, record.skills, record.languages, record.created_date)}
-        >
+        <span className="title-link" onClick={() => openModal(record.resume.id)}>
           {text}
         </span>
       ),
     },
     {
       title: "Phone",
-      dataIndex: ["applicant", "phone"], // Accessing nested data
+      dataIndex: ["applicant", "phone"],
     },
     {
       title: "Email",
-      dataIndex: ["resume", "contacts"], // Accessing nested data
+      dataIndex: ["resume", "contacts"],
     },
     {
       title: "Application Date",
@@ -135,7 +109,7 @@ function AppliedCandidates({
     },
     {
       title: "Resume Title",
-      dataIndex: ["resume", "title"], // Accessing nested data
+      dataIndex: ["resume", "title"],
     },
     {
       title: "Action",
@@ -145,20 +119,10 @@ function AppliedCandidates({
           <div>
             {record.status === "pending" && (
               <>
-                <span
-                  className="underline"
-                  onClick={() =>
-                    changeStatus(record, "approved")
-                  }
-                >
+                <span className="underline" onClick={() => changeStatus(record, "approved")}>
                   Approve
                 </span>
-                <span
-                  className="underline mx-2"
-                  onClick={() =>
-                    changeStatus(record , "rejected")
-                  }
-                >
+                <span className="underline mx-2" onClick={() => changeStatus(record, "rejected")}>
                   Reject
                 </span>
               </>
@@ -168,7 +132,17 @@ function AppliedCandidates({
       },
     },
   ];
-  
+
+  const fetchResumeData = async (id) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/get_resumes/${id}/`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return { success: false, message: "Failed to fetch resume data" };
+    }
+  };
 
   return (
     <div>
@@ -184,19 +158,37 @@ function AppliedCandidates({
       {showModal && (
         <Modal
           title={modalData.title}
-          open={true} 
+          open={true}
           onCancel={() => setShowModal(false)}
           footer={null}
-          width={800} // Set the width of the modal as per your design
+          width={800}
         >
-          <div>{modalData.title}</div>
-          <div>{modalData.experiences}</div>
-          <div>{modalData.educations}</div>
-          <div>{modalData.skills}</div>
-          <div>{modalData.contacts}</div>
-          <div>{modalData.summary}</div>
-          <div>{modalData.languages}</div>
-          <div>{modalData.created_date}</div>
+          <List>
+            <List.Item>
+              <strong>Title:</strong> {modalData.title}
+            </List.Item>
+            <List.Item>
+              <strong>Experiences:</strong> {modalData.experiences}
+            </List.Item>
+            <List.Item>
+              <strong>Educations:</strong> {modalData.educations}
+            </List.Item>
+            <List.Item>
+              <strong>Skills:</strong> {modalData.skills}
+            </List.Item>
+            <List.Item>
+              <strong>Contacts:</strong> {modalData.contacts}
+            </List.Item>
+            <List.Item>
+              <strong>Summary:</strong> {modalData.summary}
+            </List.Item>
+            <List.Item>
+              <strong>Languages:</strong> {modalData.languages}
+            </List.Item>
+            <List.Item>
+              <strong>Created Date:</strong> {modalData.created_date}
+            </List.Item>
+          </List>
         </Modal>
       )}
     </div>

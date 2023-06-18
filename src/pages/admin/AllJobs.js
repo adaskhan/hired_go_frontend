@@ -124,7 +124,7 @@ function AllJobs({}) {
       {showModal && (
         <Modal
           title={modalData.title}
-          visible={true} 
+          open={true} 
           onCancel={() => setShowModal(false)}
           footer={null}
           width={800} // Set the width of the modal as per your design
