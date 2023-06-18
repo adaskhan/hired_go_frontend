@@ -49,27 +49,27 @@ function UserHomepage() {
 
   return (
     <div>
-      <h2>Profile</h2>
-      <p>Username: {userData.username}</p>
-      <p>First Name: {userData.first_name}</p>
-      <p>Last Name: {userData.last_name}</p>
+      <h2>Профиль</h2>
+      <p>Имя пользователя: {userData.username}</p>
+      <p>Имя: {userData.first_name}</p>
+      <p>Фамилия: {userData.last_name}</p>
       <div>
-        <label>Phone:</label>
+        <label>Номер телефона:</label>
         <input type="text" value={phone} onChange={e => setPhone(e.target.value)} />
       </div>
       <div>
-        <label>Gender:</label>
+        <label>Пол:</label>
         <input type="text" value={gender} onChange={e => setGender(e.target.value)} />
       </div>
       <div>
-        <label>Type:</label>
+        <label>Тип:</label>
         <input type="text" value={type} onChange={e => setType(e.target.value)} />
       </div>
       <div>
-        <label>Image:</label>
+        <label>Фото:</label>
         <input type="file" onChange={e => setImage(e.target.files[0])} />
       </div>
-      <button onClick={handleUpdateHomepage}>Update</button>
+      <button onClick={handleUpdateHomepage}>Обновить</button>
     </div>
   );
 }

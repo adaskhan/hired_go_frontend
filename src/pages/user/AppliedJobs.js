@@ -39,16 +39,20 @@ function AppliedJobs() {
 
   const columns = [
     {
-      title: "Job",
+      title: "Вакансия",
       dataIndex: "vacancy_title",
     },
     {
-      title: "Company",
+      title: "Компания",
       dataIndex: "company_name",
     },
     {
-      title: "Applied On",
+      title: "Дата подачи заявок",
       dataIndex: "application_date",
+    },
+    {
+      title: "Статус",
+      dataIndex: "application_status",
     },
   ];
 
@@ -59,7 +63,7 @@ function AppliedJobs() {
   return (
     <div>
       <div className="d-flex justify-content-between">
-        <PageTitle title="Applied Jobs" />
+        <PageTitle title="Мои отклики" />
       </div>
 
       <Table columns={columns} dataSource={data} />

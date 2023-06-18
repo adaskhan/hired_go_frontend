@@ -38,7 +38,7 @@ function AllRecruiters() {
       if (response.success) {
         const updatedUsers = data.filter(user => user.user.id !== id);
         setData(updatedUsers);
-        message.success("Recruiter successfully deleted.");
+        message.success("Рекрутер был успешно удален.");
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -77,7 +77,7 @@ function AllRecruiters() {
   
         setData(updatedData);
   
-        message.success(`Recruiter status successfully updated to ${newStatus}.`);
+        message.success(`Статус рекрутера была успешно обновлен на ${newStatus}.`);
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -205,15 +205,15 @@ const handleStatusChange = async (value, recruiterData) => {
   
   const columns = [
     {
-      title: "Name",
+      title: "ФИО",
       dataIndex: "user_first_name",
     },
     {
-        title: "Email",
+        title: "Почта",
         dataIndex: "email",
       },
     {
-      title: "Company",
+      title: "Компания",
       dataIndex: "company_name",
     },
     {
@@ -223,16 +223,16 @@ const handleStatusChange = async (value, recruiterData) => {
               style={{ width: 120 }}
               onChange={(value) => handleStatusChange(value, record)}
             >
-              <Option value="Accepted">Accepted</Option>
-              <Option value="Rejected">Rejected</Option>
-              <Option value="pending">Pending</Option>
+              <Option value="Accepted">Подтвержден</Option>
+              <Option value="Rejected">Отклонен</Option>
+              <Option value="pending">На рассмотрении</Option>
             </Select>
           ),
         dataIndex: "status",
         
       },
     {
-      title: "Action",
+      title: "Действие",
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-2 align-items-center">

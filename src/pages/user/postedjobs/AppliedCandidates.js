@@ -43,16 +43,16 @@ function AppliedCandidates({
         const data = response.data;
         const experiences = data.experiences.map((experience) => (
           <div key={experience.company}>
-            <p>Company: {experience.company}</p>
-            <p>Position: {experience.position}</p>
-            <p>Period: {experience.period_start} - {experience.period_end}</p>
+            <p>Компания: {experience.company}</p>
+            <p>Позиция: {experience.position}</p>
+            <p>Период: {experience.period_start} - {experience.period_end}</p>
           </div>
         ));
         const educations = data.educations.map((education) => (
           <div key={education.institution}>
-            <p>Institution: {education.institution}</p>
-            <p>Degree: {education.degree}</p>
-            <p>Period: {education.period_start} - {education.period_end}</p>
+            <p>Учебное заведение: {education.institution}</p>
+            <p>Степень: {education.degree}</p>
+            <p>Период: {education.period_start} - {education.period_end}</p>
           </div>
         ));
   
@@ -117,7 +117,7 @@ function AppliedCandidates({
       dataIndex: "id",
     },
     {
-      title: "Name",
+      title: "ФИО",
       dataIndex: ["applicant", "full_name"],
       render: (text, record) => (
         <span key={record.id} className="title-link" onClick={() => openModal(record.resume.id)}>
@@ -127,23 +127,23 @@ function AppliedCandidates({
       
     },
     {
-      title: "Phone",
+      title: "Номер телефона",
       dataIndex: ["applicant", "phone"],
     },
     {
-      title: "Email",
+      title: "Почта",
       dataIndex: ["resume", "contacts"],
     },
     {
-      title: "Application Date",
+      title: "Дата подачи заявок",
       dataIndex: "application_date",
     },
     {
-      title: "Resume Title",
+      title: "Резюме",
       dataIndex: ["resume", "title"],
     },
     {
-      title: "Action",
+      title: "Действие",
       dataIndex: "action",
       render: (text, record) => {
         return (
@@ -151,24 +151,24 @@ function AppliedCandidates({
             {( record.application_status == "pending" &&
               <>
                 <span className="underline" onClick={() => changeStatus(record, "invite")}>
-                  Invite
+                  Пригласить
                 </span>
                 <span className="underline mx-2" onClick={() => changeStatus(record, "refuse")}>
-                  Refuse
+                  Отклонить
                 </span>
               </>
             )} 
             {( record.application_status == "invited" &&
               <>
                 <span className="underline">
-                  Invited
+                  Приглашено
                 </span>
               </>
             )} 
             {( record.application_status == "refused" &&
               <>
                 <span className="underline">
-                  Refused
+                  Откланено
                 </span>
               </>
             )} 
@@ -193,7 +193,7 @@ function AppliedCandidates({
   return (
     <div>
       <Modal
-        title="Applied Candidates"
+        title="Заявки"
         open={showAppliedCandidates}
         onCancel={() => setShowAppliedCandidates(false)}
         footer={null}
@@ -211,28 +211,28 @@ function AppliedCandidates({
         >
           <List>
             <List.Item>
-              <strong>Title:</strong> {modalData.title}
+              <strong>Резюме:</strong> {modalData.title}
             </List.Item>
             <List.Item>
-              <strong>Experiences:</strong> {modalData.experiences}
+              <strong>Опыт работы:</strong> {modalData.experiences}
             </List.Item>
             <List.Item>
-              <strong>Educations:</strong> {modalData.educations}
+              <strong>Образование:</strong> {modalData.educations}
             </List.Item>
             <List.Item>
-              <strong>Skills:</strong> {modalData.skills}
+              <strong>Навыки:</strong> {modalData.skills}
             </List.Item>
             <List.Item>
-              <strong>Contacts:</strong> {modalData.contacts}
+              <strong>Контакты:</strong> {modalData.contacts}
             </List.Item>
             <List.Item>
-              <strong>Summary:</strong> {modalData.summary}
+              <strong>О себе:</strong> {modalData.summary}
             </List.Item>
             <List.Item>
-              <strong>Languages:</strong> {modalData.languages}
+              <strong>Языки:</strong> {modalData.languages}
             </List.Item>
             <List.Item>
-              <strong>Created Date:</strong> {modalData.created_date}
+              <strong>Дата создания:</strong> {modalData.created_date}
             </List.Item>
           </List>
         </Modal>

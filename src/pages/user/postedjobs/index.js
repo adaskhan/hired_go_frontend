@@ -71,24 +71,24 @@ function PostedJobs() {
 
   const columns = [
     {
-      title: "Title",
+      title: "Вакансия",
       dataIndex: "title",
     },
     {
-      title: "Company",
+      title: "Компания",
       dataIndex: "company_name_id",
       render: company => company?.company_name
     },
     {
-      title: "Posted On",
+      title: "Дата объявления",
       dataIndex: "start_date",
     },
     {
-      title: "Last Date to Apply",
+      title: "Доступно до",
       dataIndex: "end_date",
     },
     {
-      title: "Action",
+      title: "Действие",
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-3 align-items-center">
@@ -96,7 +96,7 @@ function PostedJobs() {
             className="underline"
             onClick={() => getAppliedCandidates(record.id)}
           >
-            candidates
+            кандидаты
           </span>
           <i
             class="ri-delete-bin-line"
@@ -120,12 +120,12 @@ function PostedJobs() {
   return (
     <div>
       <div className="d-flex justify-content-between">
-        <PageTitle title="Posted Jobs" />
+        <PageTitle title="Мои вакансии" />
         <button
           className="primary-outlined-btn"
           onClick={() => navigate("/posted-jobs/new")}
         >
-          New Job
+          Создать
         </button>
       </div>
 

@@ -29,10 +29,10 @@ function Notifications() {
 
   return (
     <div>
-      <PageTitle title="Notifications" />
+      <PageTitle title="Уведомление" />
 
       <Tabs defaultActiveKey="1">
-        <TabPane tab="Unread" key="1">
+        <TabPane tab="Непрочитанные" key="1">
           {unreadNotifications.map((notification, index) => (
             <Alert
               key={index}
@@ -55,7 +55,7 @@ function Notifications() {
             />
           ))}
         </TabPane>
-        <TabPane tab="Read" key="2">
+        <TabPane tab="Прочитанные" key="2">
           {readNotifications.map((notification, index) => (
             <Alert
               key={index}

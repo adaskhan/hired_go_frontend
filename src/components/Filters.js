@@ -38,17 +38,17 @@ function Filters({ filters, setFilters, setData }) {
           value={filters.location}
           onChange={(e) => setFilters({ ...filters, location: e.target.value })}
         >
-          <option value="">Location</option>
-          <option value="Almaty">Almaty</option>
-          <option value="Astana">Astana</option>
-          <option value="Kostanai">Kostanai</option>
-          <option value="Kyzylorda">Kyzylorda</option>
-          <option value="Taraz">Taraz</option>
-          <option value="Shymkent">Shymkent</option>
-          <option value="Semei">Semei</option>
-          <option value="Pavlodar">Pavlodar</option>
-          <option value="Aktobe">Aktobe</option>
-          <option value="Kokshetau">Kokshetau</option>
+          <option value="">Локация</option>
+          <option value="Almaty">Алматы</option>
+          <option value="Astana">Астана</option>
+          <option value="Kostanai">Костанай</option>
+          <option value="Kyzylorda">Кызылорда</option>
+          <option value="Taraz">Тараз</option>
+          <option value="Shymkent">Шымкент</option>
+          <option value="Semei">Семей</option>
+          <option value="Pavlodar">Павлодар</option>
+          <option value="Aktobe">Актобе</option>
+          <option value="Kokshetau">Кокшетау</option>
         </select>
         <select
           name=""
@@ -56,7 +56,7 @@ function Filters({ filters, setFilters, setData }) {
           value={filters.industry}
           onChange={(e) => setFilters({ ...filters, industry: e.target.value })}
         >
-          <option value="">Tech Stack</option>
+          <option value="">Стэк</option>
           <option value="Python">Python</option>
           <option value="JavaScript">Java</option>
           <option value="Ruby">Ruby</option>
@@ -82,10 +82,10 @@ function Filters({ filters, setFilters, setData }) {
             experience:""
          })
         }}>
-          CLEAR
+          ОЧИСТИТЬ
         </button>
         <button className="primary-contained-btn" onClick={() => filterData(filters)}>
-          FILTER
+          ФИЛЬТР
         </button>
       </div>
     </div>

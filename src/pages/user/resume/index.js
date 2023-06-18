@@ -38,11 +38,11 @@ function Resumes() {
 
   return (
     <div>
-      <PageTitle title="Resume" />
+      <PageTitle title="Мои резюме" />
       {resumeData && Object.keys(resumeData).length >= 0 && (
         <Form layout="vertical" initialValues={resumeData}>
           <Tabs defaultActiveKey="1">
-            <TabPane tab="List of resumes" key="1">
+            <TabPane tab="Список резюме" key="1">
               <ListOfResume />
             </TabPane>
           </Tabs>

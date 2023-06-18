@@ -55,7 +55,7 @@ function Profile() {
 
   return (
     <div>
-      <PageTitle title="Profile" />
+      <PageTitle title="Профиль" />
       {userData && (
         <Form layout="vertical" onFinish={onFinish} initialValues={userData}>
           <Tabs defaultActiveKey="1">

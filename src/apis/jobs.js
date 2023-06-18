@@ -37,20 +37,20 @@ export const addNewJobPost = async (payload) => {
     if (response.status === 200 || response.status === 201) {
       return {
         success: true,
-        message: "Job posted successfully",
+        message: "Вакансия успешно добавлен",
       };
     } else {
       console.log(response.data);
       return {
         success: false,
-        message: response.data.error || "Something went wrong",
+        message: response.data.error || "Возникла ошибка",
       };
     }
   } catch (error) {
     console.log(error);
     return {
       success: false,
-      message: error.message || "Something went wrong",
+      message: error.message || "Возникла ошибка",
     };
   }
 };
@@ -89,14 +89,14 @@ export const getJobById = async (id) => {
     } else {
       return {
         success: false,
-        message: "No such job!",
+        message: "Никаких совпадений не найдено!",
       };
     }
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message: "Something went wrong",
+      message: "Возникла ошибка",
     };
   }
 };
@@ -114,14 +114,14 @@ export const getJobById = async (id) => {
       } else {
         return {
           success: false,
-          message: data.detail || "Something went wrong",
+          message: data.detail || "Возникла ошибка",
         };
       }
     } catch (error) {
       console.log(error);
       return {
         success: false,
-        message: "Something went wrong",
+        message: "Возникла ошибка",
       };
     }
   };  
@@ -136,12 +136,12 @@ export const getJobById = async (id) => {
       });
       return {
         success: true,
-        message: "Job updated successfully",
+        message: "Вакансия успешно обнавлена",
       };
     } catch (error) {
       return {
         success: false,
-        message: "Something went wrong",
+        message: "Возникла ошибка",
       };
     }
   };
@@ -191,7 +191,7 @@ export const getJobById = async (id) => {
     } catch (error) {
       return {
         success: false,
-        message: "Something went wrong",
+        message: "Возникла ошибка",
       };
     }
   };

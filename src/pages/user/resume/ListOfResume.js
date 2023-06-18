@@ -45,14 +45,14 @@ function ListOfResume() {
 
   const columns = [
     {
-      title: "Title",
+      title: "Резюме",
       dataIndex: "title",
       render: (text, record) => (
         <span className="title-link">{text}</span>
       ),
     },
     {
-      title: "Contacts",
+      title: "Контакты",
       dataIndex: "contacts",
     },
   ];
@@ -64,12 +64,12 @@ function ListOfResume() {
   return (
     <div>
       <div className="d-flex justify-content-between">
-        <PageTitle title="My Resumes" />
+        <PageTitle title="" />
         <button
           className="primary-outlined-btn"
           onClick={() => navigate("/my-resumes/new")}
         >
-          New Resume
+          Создать резюме
         </button>
       </div>
       <Table columns={columns} dataSource={data} />

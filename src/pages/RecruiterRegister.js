@@ -45,49 +45,49 @@ function Register() {
   return (
     <div className="h-screen d-flex justify-content-center align-items-center bg-primary">
       <div className="bg-white p-4 w-400">
-        <h4>hiredGo - REGISTER</h4>
+        <h4>hiredGo - Регистрация</h4>
         <div className="divider"></div>
         <Form layout="vertical" onFinish={onFinish}>
           <div className="d-flex justify-content-between">
             <div style={{ width: '45%' }}>
-              <Form.Item name="first_name" label="First Name">
+              <Form.Item name="first_name" label="Имя">
                 <input type="text" />
               </Form.Item>
-              <Form.Item name="username" label="Username">
+              <Form.Item name="username" label="Имя пользователя">
                 <input type="text" />
               </Form.Item>
-              <Form.Item name="gender" label="Gender">
+              <Form.Item name="gender" label="Пол">
                 <input type="text" />
               </Form.Item>
-              <Form.Item name="password" label="Password">
+              <Form.Item name="password" label="Пароль">
                 <input type="password" />
               </Form.Item>
             </div>
             <div style={{ width: '45%' }}>
-              <Form.Item name="last_name" label="Last Name">
+              <Form.Item name="last_name" label="Фамилия">
                 <input type="text" />
               </Form.Item>
-              <Form.Item name="email" label="Email">
+              <Form.Item name="email" label="Почта">
                 <input type="text" />
               </Form.Item>
-              <Form.Item name="phone" label="Phone">
+              <Form.Item name="phone" label="Номер телефона">
                 <input type="text" />
               </Form.Item>
-              <Form.Item name="password2" label="Password2">
+              <Form.Item name="password2" label="Повторите пароль">
                 <input type="password" />
               </Form.Item>
             </div>
           </div>
           <div style={{ width: '90%' }}>
-              <Form.Item name="company_name" label="Company">
+              <Form.Item name="company_name" label="Компания">
                 <input type="text" />
               </Form.Item>
             </div>
           <button className="primary-contained-btn w-100 mt-2" type="submit">
-            Register
+            Зарегистрироваться
           </button>
           <Link to="/recruiter_login" className="d-block mt-2">
-            Already a member? Click here to login
+            Уже зарегистрировались? 
           </Link>
         </Form>
       </div>

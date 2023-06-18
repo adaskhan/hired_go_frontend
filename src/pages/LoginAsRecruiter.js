@@ -43,20 +43,20 @@ function LoginAsRecruiter() {
   return (
     <div className="h-screen d-flex justify-content-center align-items-center bg-primary">
       <div className="bg-white p-4 w-400">
-        <h4>hiredGo - log in as recruiter</h4>
+        <h4>hiredGo - войти как рекрутер</h4>
         <div className="divider"></div>
         <Form layout="vertical" onFinish={onFinish}>
-          <Form.Item name="email" label="Email">
+          <Form.Item name="email" label="Имя пользователя или почта">
             <Input type="text" />
           </Form.Item>
-          <Form.Item name="password" label="Password">
+          <Form.Item name="password" label="Пароль">
             <Input.Password />
           </Form.Item>
           <Button className="primary-contained-btn w-100 mt-2" type="primary" htmlType="submit">
-            Login
+            Войти
           </Button>
           <Link to="/recruiter_register" className="d-block mt-2">
-            Not a member? Click here to register
+            Еще не зарегистрировались?
           </Link>
         </Form>
       </div>
