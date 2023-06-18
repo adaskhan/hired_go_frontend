@@ -78,34 +78,29 @@ function AppliedCandidates({
   
 
   const changeStatus = async (applicationData, status) => {
-    const userr = JSON.parse(localStorage.getItem("user"));
-    try {
-      dispatch(ShowLoading());
-  
-      let response;
-      if (status === "Accepted") {
-        
-        response = await axios.post(
-          `http://localhost:8000/api/invite_candidate/${applicationData.id}/`, {
+      dispatch(HideLoading());
+      try{
+        let url = "";
+        if (status === "invite") {
+          url = `http://127.0.0.1:8000/api/invite_candidate/${applicationData.id}/`;
+        } else {
+          url = `http://127.0.0.1:8000/api/refuse_candidate/${applicationData.id}/`;
+        }
+    
+        const userr = JSON.parse(localStorage.getItem("user"));
+        const response = await axios.post(
+          url,
+          {},
+          {
             headers: {
-              Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
-            },
-          });
-      } else if (status === "Rejected") {
-        response = await axios.post(
-          `http://localhost:8000/api/refuse_candidate/${applicationData.id}/`, {
-            headers: {
-              Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+              Authorization: `Bearer ${userr.access}`,
             },
           }
-        );
-      }
+      );
   
-      dispatch(HideLoading());
-  
-      if (response.status === 200) {
-        message.success("Application status changed successfully");
-        reloadData(applicationData.jobId);
+      if (response.success) {
+        message.success(response.message);
+        reloadData(applicationData.jobId);  
       } else {
         message.error("Failed to change application status");
       }
@@ -151,23 +146,34 @@ function AppliedCandidates({
       title: "Action",
       dataIndex: "action",
       render: (text, record) => {
-          return (
-            <div>
-              <span
-                className="underline"
-                onClick={() => changeStatus(record, "Accepted")}
-              >
-                Accept
-              </span>
-              <span
-                className="underline mx-2"
-                onClick={() => changeStatus(record, "Rejected")}
-              >
-                Reject
-              </span>
-            </div>
-          );
-        
+        return (
+          <div>
+            {( record.application_status == "pending" &&
+              <>
+                <span className="underline" onClick={() => changeStatus(record, "invite")}>
+                  Invite
+                </span>
+                <span className="underline mx-2" onClick={() => changeStatus(record, "refuse")}>
+                  Refuse
+                </span>
+              </>
+            )} 
+            {( record.application_status == "invited" &&
+              <>
+                <span className="underline">
+                  Invited
+                </span>
+              </>
+            )} 
+            {( record.application_status == "refused" &&
+              <>
+                <span className="underline">
+                  Refused
+                </span>
+              </>
+            )} 
+          </div>
+        );
       },
     },
   ];
