@@ -45,9 +45,6 @@ function Resumes() {
             <TabPane tab="List of resumes" key="1">
               <ListOfResume />
             </TabPane>
-            <TabPane tab="Add new resume" key="2">
-              <NewEditResume />
-            </TabPane>
           </Tabs>
         </Form>
       )}

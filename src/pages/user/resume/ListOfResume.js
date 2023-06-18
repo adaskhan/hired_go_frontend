@@ -65,6 +65,12 @@ function ListOfResume() {
     <div>
       <div className="d-flex justify-content-between">
         <PageTitle title="My Resumes" />
+        <button
+          className="primary-outlined-btn"
+          onClick={() => navigate("/my-resumes/new")}
+        >
+          New Resume
+        </button>
       </div>
       <Table columns={columns} dataSource={data} />
     </div>

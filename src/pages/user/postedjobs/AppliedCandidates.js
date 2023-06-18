@@ -1,5 +1,5 @@
 import { message, Modal, Table } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeApplicationStatus } from "../../../apis/jobs";
@@ -13,6 +13,14 @@ function AppliedCandidates({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState({ title: "", experiences: "", educations: "", contacts: "", summary: "", skills: "", languages: "", created_date: "" });
+
+  const openModal = (title, experiences, educations, contacts, summary, skills, languages, created_date) => {
+    setModalData({ title, experiences, educations, contacts, summary, skills, languages, created_date });
+    setShowModal(true);
+  };
 
   const changeStatus = async (applicationData ,  status) => {
     try {
@@ -104,6 +112,14 @@ function AppliedCandidates({
     {
       title: "Name",
       dataIndex: ["applicant", "full_name"], // Accessing nested data
+      render: (text, record) => (
+        <span
+          className="title-link"
+          onClick={() => openModal(record.title, record.experiences, record.educations, record.contacts, record.summary, record.skills, record.languages, record.created_date)}
+        >
+          {text}
+        </span>
+      ),
     },
     {
       title: "Phone",
@@ -158,13 +174,31 @@ function AppliedCandidates({
     <div>
       <Modal
         title="Applied Candidates"
-        visible={showAppliedCandidates}
+        open={showAppliedCandidates}
         onCancel={() => setShowAppliedCandidates(false)}
         footer={null}
         width={1000}
       >
         <Table columns={columns} dataSource={appiledCandidates} rowKey="id" />
       </Modal>
+      {showModal && (
+        <Modal
+          title={modalData.title}
+          open={true} 
+          onCancel={() => setShowModal(false)}
+          footer={null}
+          width={800} // Set the width of the modal as per your design
+        >
+          <div>{modalData.title}</div>
+          <div>{modalData.experiences}</div>
+          <div>{modalData.educations}</div>
+          <div>{modalData.skills}</div>
+          <div>{modalData.contacts}</div>
+          <div>{modalData.summary}</div>
+          <div>{modalData.languages}</div>
+          <div>{modalData.created_date}</div>
+        </Modal>
+      )}
     </div>
   );
 }

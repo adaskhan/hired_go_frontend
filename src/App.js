@@ -116,6 +116,15 @@ function App() {
           />
 
           <Route
+            path="/my-resumes/new"
+            element={
+              <ProtectedRoute>
+                <NewEditResume />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/posted-jobs/new"
             element={
               <ProtectedRoute>

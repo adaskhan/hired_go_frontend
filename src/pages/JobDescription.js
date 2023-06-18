@@ -16,6 +16,7 @@ function JobDescription() {
   const [alreadyApplied, setAlreadyApplied] = React.useState(false);
   const userr = JSON.parse(localStorage.getItem("user"));
 
+  
   const getData = async () => {
     try {
       dispatch(ShowLoading());
