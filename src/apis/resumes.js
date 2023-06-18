@@ -11,18 +11,18 @@ export const addNewResume = async (payload) => {
   const data = {
     ...payload,
   }
-  console.log("Data: ", data.skills);  // Debug line
+  console.log("Data: ", data.skills);  
 
   try {
     const userr = JSON.parse(localStorage.getItem("user"));
-    console.log("User: ", userr);  // Debug line
+    console.log("User: ", userr); 
     const response = await axios.post('http://127.0.0.1:8000/api/create_resume/', data, {
       headers: {
         'Authorization': `Bearer ${userr.access}`,
-        'Content-Type': 'application/json' // Pass the access token in the headers
+        'Content-Type': 'application/json' 
       },
     });
-    console.log("Response: ", response);  // Debug line
+    console.log("Response: ", response);  
     if (response.status === 200 || response.status === 201) {
       return {
         success: true,
@@ -36,7 +36,7 @@ export const addNewResume = async (payload) => {
       };
     }
   } catch (error) {
-    console.error(error);  // Debug line
+    console.error(error);  
     return {
       success: false,
       message: error.message || "Something went wrong",

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeApplicationStatus } from "../../../apis/jobs";
 import { HideLoading, ShowLoading } from "../../../redux/alertSlice";
+import axios from 'axios';
 
 function AppliedCandidates({
   showAppliedCandidates,
@@ -29,25 +30,40 @@ function AppliedCandidates({
   const openModal = async (id) => {
     try {
       dispatch(ShowLoading());
-  
-      // Make the API request to fetch resume data
-      const response = await fetch(`http://127.0.0.1:8000/api/get_resumes/${id}/`);
+      const userr = JSON.parse(localStorage.getItem("user"));
+      const response = await axios.get(`http://127.0.0.1:8000/api/view_resume/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+        },
+      });
   
       dispatch(HideLoading());
   
-      if (response.ok) {
-        const data = await response.json();
-        const { title, experiences, educations, contacts, summary, skills, languages, created_date } = data;
+      if (response.status === 200) {
+        const data = response.data;
+        const experiences = data.experiences.map((experience) => (
+          <div key={experience.company}>
+            <p>Company: {experience.company}</p>
+            <p>Position: {experience.position}</p>
+            <p>Period: {experience.period_start} - {experience.period_end}</p>
+          </div>
+        ));
+        const educations = data.educations.map((education) => (
+          <div key={education.institution}>
+            <p>Institution: {education.institution}</p>
+            <p>Degree: {education.degree}</p>
+            <p>Period: {education.period_start} - {education.period_end}</p>
+          </div>
+        ));
   
         setModalData({
-          title,
+          title: data.title,
           experiences,
           educations,
-          contacts,
-          summary,
-          skills,
-          languages,
-          created_date: created_date.email,
+          contacts: data.contacts,
+          summary: data.summary,
+          skills: data.skills,
+          languages: data.languages,
         });
         setShowModal(true);
       } else {

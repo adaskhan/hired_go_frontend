@@ -266,6 +266,7 @@ export const getApplicationsByJobId = async (jobId) => {
         Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
       },
     });
+    console.log(response.data);
     return {
       success: true,
       data: response.data,
