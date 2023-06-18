@@ -31,7 +31,7 @@ function AppliedCandidates({
     try {
       dispatch(ShowLoading());
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/view_resume/${id}/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/view_resume/${id}/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
         },
@@ -82,9 +82,9 @@ function AppliedCandidates({
       try{
         let url = "";
         if (status === "invite") {
-          url = `http://127.0.0.1:8000/api/invite_candidate/${applicationData.id}/`;
+          url = `https://hiredgo.pythonanywhere.com/api/invite_candidate/${applicationData.id}/`;
         } else {
-          url = `http://127.0.0.1:8000/api/refuse_candidate/${applicationData.id}/`;
+          url = `https://hiredgo.pythonanywhere.com/api/refuse_candidate/${applicationData.id}/`;
         }
     
         const userr = JSON.parse(localStorage.getItem("user"));
@@ -181,7 +181,7 @@ function AppliedCandidates({
 
   const fetchResumeData = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/get_resumes/${id}/`);
+      const response = await fetch(`https://hiredgo.pythonanywhere.com/api/get_resumes/${id}/`);
       const data = await response.json();
       return data;
     } catch (error) {

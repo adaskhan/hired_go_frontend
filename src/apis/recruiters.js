@@ -23,7 +23,7 @@ import {
   export const getAllRecruiters = async () => {
     try {
         const userr = JSON.parse(localStorage.getItem("user"));
-        const response = await axios.get(`http://127.0.0.1:8000/api/all_recruiters/`, {
+        const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/all_recruiters/`, {
           headers: {
             Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
           },
@@ -82,7 +82,7 @@ import {
   export const deleteRecruiterById = async (id) => {
     const userr = JSON.parse(localStorage.getItem("user"));
     try {
-      const response = await axios.delete(`http://localhost:8000/api/delete_recruiters/${id}/`, {
+      const response = await axios.delete(`https://hiredgo.pythonanywhere.com/api/delete_recruiters/${id}/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, 
         },
@@ -103,7 +103,7 @@ import {
       const userr = JSON.parse(localStorage.getItem("user"));
 
       // Make a PATCH request to the change status API
-      const response = await axios.patch(`http://127.0.0.1:8000/api/change_status/${payload.user.id}/`, 
+      const response = await axios.patch(`https://hiredgo.pythonanywhere.com/api/change_status/${payload.user.id}/`, 
         {
           status: payload.status,
         }, 

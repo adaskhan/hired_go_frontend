@@ -3,7 +3,7 @@ import {   message } from "antd";
 
 export const LoginUser = async (payload) => {
   try {
-    const response = await axios.post('http://localhost:8000/api/user_login/', {
+    const response = await axios.post('https://hiredgo.pythonanywhere.com/api/user_login/', {
       username: payload.email,
       password: payload.password
     });
@@ -57,7 +57,7 @@ export const LoginUser = async (payload) => {
 
 export const LoginAdmin = async (payload) => {
   try {
-    const response = await axios.post('http://localhost:8000/api/admin_login/', {
+    const response = await axios.post('https://hiredgo.pythonanywhere.com/api/admin_login/', {
       username: payload.email,
       password: payload.password
     });
@@ -111,7 +111,7 @@ export const LoginAdmin = async (payload) => {
 
 export const LoginRecruiter = async (payload) => {
   try {
-    const response = await axios.post('http://localhost:8000/api/recruiter_login/', {
+    const response = await axios.post('https://hiredgo.pythonanywhere.com/api/recruiter_login/', {
       username: payload.email,
       password: payload.password
     });
@@ -164,7 +164,7 @@ export const LoginRecruiter = async (payload) => {
 
 export const RegisterUser = async (payload) => {
   try {
-    const response = await fetch('http://localhost:8000/api/user_signup/', {
+    const response = await fetch('https://hiredgo.pythonanywhere.com/api/user_signup/', {
       method: 'POST',
       body: payload
     });
@@ -199,7 +199,7 @@ export const RegisterUser = async (payload) => {
 
 export const RegisterRecruiter = async (payload) => {
   try {
-    const response = await fetch('http://localhost:8000/api/recruiter_signup/', {
+    const response = await fetch('https://hiredgo.pythonanywhere.com/api/recruiter_signup/', {
       method: 'POST',
       body: payload,
     });

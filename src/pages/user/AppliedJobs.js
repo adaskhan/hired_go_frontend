@@ -20,7 +20,7 @@ function AppliedJobs() {
     try {
       dispatch(ShowLoading());
       const user = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/get_applications/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/get_applications/`, {
         headers: {
           Authorization: `Bearer ${user.access}`,
         }

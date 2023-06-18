@@ -28,7 +28,7 @@ export const addNewJobPost = async (payload) => {
   data.skills = skillsString;
   try {
     const userr = JSON.parse(localStorage.getItem("user"));
-    const response = await axios.post('http://127.0.0.1:8000/api/add_vacancies/', data, {
+    const response = await axios.post('https://hiredgo.pythonanywhere.com/api/add_vacancies/', data, {
       headers: {
         'Authorization': `Bearer ${userr.access}`,
         'Content-Type': 'application/json' // Pass the access token in the headers
@@ -58,7 +58,7 @@ export const addNewJobPost = async (payload) => {
   
   export async function getPostedJobsByUserId(userId) {
     const userr = JSON.parse(localStorage.getItem("user"));
-    const response = await fetch('http://localhost:8000/api/vacancies_list/', {
+    const response = await fetch('https://hiredgo.pythonanywhere.com/api/vacancies_list/', {
       headers: {
         Authorization: `Bearer ${userr.access}`, 
       },
@@ -75,7 +75,7 @@ export const addNewJobPost = async (payload) => {
 export const getJobById = async (id) => {
   try {
     const userr = JSON.parse(localStorage.getItem("user"));
-    const response = await axios.get(`http://127.0.0.1:8000/api/vacancies_detail/${id}/`, {
+    const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/vacancies_detail/${id}/`, {
       headers: {
         Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
       },
@@ -104,7 +104,7 @@ export const getJobById = async (id) => {
   
   export const getAllVacancies = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/all_vacancies/');
+      const response = await fetch('https://hiredgo.pythonanywhere.com/api/all_vacancies/');
       const data = await response.json();
       if (response.ok) {
         return {
@@ -179,7 +179,7 @@ export const getJobById = async (id) => {
   export const deleteJobById = async (id) => {
     const userr = JSON.parse(localStorage.getItem("user"));
     try {
-      const response = await axios.delete(`http://localhost:8000/api/delete_vacancy/${id}/`, {
+      const response = await axios.delete(`https://hiredgo.pythonanywhere.com/api/delete_vacancy/${id}/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, 
         },
@@ -261,7 +261,7 @@ export const getJobById = async (id) => {
 export const getApplicationsByJobId = async (jobId) => {
   try {
     const userr = JSON.parse(localStorage.getItem("user"));
-    const response = await axios.get(`http://localhost:8000/api/all_applicants/${jobId}/`, {
+    const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/all_applicants/${jobId}/`, {
       headers: {
         Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
       },

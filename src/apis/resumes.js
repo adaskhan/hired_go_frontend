@@ -16,7 +16,7 @@ export const addNewResume = async (payload) => {
   try {
     const userr = JSON.parse(localStorage.getItem("user"));
     console.log("User: ", userr); 
-    const response = await axios.post('http://127.0.0.1:8000/api/create_resume/', data, {
+    const response = await axios.post('https://hiredgo.pythonanywhere.com/api/create_resume/', data, {
       headers: {
         'Authorization': `Bearer ${userr.access}`,
         'Content-Type': 'application/json' 
@@ -66,7 +66,7 @@ export const addNewResume = async (payload) => {
   export const getResumeById = async (id) => {
     try {
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/get_resumes/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/get_resumes/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
         },
@@ -96,7 +96,7 @@ export const addNewResume = async (payload) => {
   export const getResumesById = async (id) => {
     try {
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/resume_detail/${id}/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/resume_detail/${id}/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
         },

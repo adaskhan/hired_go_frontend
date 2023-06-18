@@ -90,7 +90,7 @@ function AllRecruiters() {
   const getPendingRecruiters = async () => {
     try {
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/pending_recruiters/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/pending_recruiters/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
         },
@@ -119,7 +119,7 @@ function AllRecruiters() {
   const getAcceptedRecruiters = async () => {
     try {
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/accepted_recruiters/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/accepted_recruiters/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
         },
@@ -148,7 +148,7 @@ function AllRecruiters() {
   const getRejectedRecruiters = async () => {
     try {
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://127.0.0.1:8000/api/rejected_recruiters/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/rejected_recruiters/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
         },

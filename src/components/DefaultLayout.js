@@ -57,9 +57,9 @@ function DefaultLayout({ children }) {
     },
     {
       title: "Поиск",
-      onClick: () => window.location.href="http://127.0.0.1:8000/api/hired_fast/search/",
+      onClick: () => window.location.href="https://hiredgo.pythonanywhere.com/api/hired_fast/search/",
       icon: <i className="ri-search-line"></i>, // Change to the appropriate icon
-      path: "http://127.0.0.1:8000/api/hired_fast/search/",
+      path: "https://hiredgo.pythonanywhere.com/api/hired_fast/search/",
     },
     {
       title: "Выйти",

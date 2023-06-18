@@ -56,7 +56,7 @@ function JobDescription() {
 
   const checkHasApplied = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/has_applied/${params.id}/${userr.user_id.user_id}/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/has_applied/${params.id}/${userr.user_id.user_id}/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`,
         },
@@ -74,7 +74,7 @@ function JobDescription() {
       dispatch(ShowLoading());
       const user = JSON.parse(localStorage.getItem('user'));
       console.log(user.user_id.resume_id);
-      const response = await axios.post(`http://127.0.0.1:8000/api/vacancies_apply/${jobData.id}/`, 
+      const response = await axios.post(`https://hiredgo.pythonanywhere.com/api/vacancies_apply/${jobData.id}/`, 
       {
         resume_id: user.user_id.resume_id  // Replace `user.resume_id` with the actual resume_id you want to use.
       },

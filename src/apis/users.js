@@ -37,7 +37,7 @@ import {
   export const deleteUserProfile = async (id) => {
     const userr = JSON.parse(localStorage.getItem("user"));
     try {
-      const response = await axios.delete(`http://localhost:8000/api/delete_applicant/${id}/`, {
+      const response = await axios.delete(`https://hiredgo.pythonanywhere.com/api/delete_applicant/${id}/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, 
         },
@@ -80,7 +80,7 @@ import {
   export const getAllUsers = async () => {
     try {
       const userr = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(`http://localhost:8000/api/view_applicants/`, {
+      const response = await axios.get(`https://hiredgo.pythonanywhere.com/api/view_applicants/`, {
         headers: {
           Authorization: `Bearer ${userr.access}`, 
         },
