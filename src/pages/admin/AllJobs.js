@@ -43,7 +43,7 @@ function AllJobs({}) {
       if (response.success) {
         const updatedJobs = data.filter(job => job.id !== id);
         setData(updatedJobs);
-        message.success("Vacancy successfully deleted.");
+        message.success("Вакансия была успешно удалена.");
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -72,7 +72,7 @@ function AllJobs({}) {
   };
   const columns = [
     {
-      title: "Title",
+      title: "Вакансия",
       dataIndex: "title",
       render: (text, record) => (
         <span
@@ -84,20 +84,20 @@ function AllJobs({}) {
       ),
     },
     {
-      title: "Company",
+      title: "Компания",
       dataIndex: "company_name_id",
       render: company => company?.company_name
     },
     {
-      title: "Posted On",
+      title: "Дата объявления",
       dataIndex: "start_date",
     },
     {
-      title: "Last Date to Apply",
+      title: "Доступно до",
       dataIndex: "end_date",
     },
     {
-      title: "Action",
+      title: "Действие",
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-2 align-items-center">
@@ -117,7 +117,7 @@ function AllJobs({}) {
   return (
     <div>
       <div className="d-flex justify-content-between">
-        <PageTitle title="All Jobs" />
+        <PageTitle title="Все вакансии" />
       </div>
 
       <Table columns={columns} dataSource={data} />

@@ -50,7 +50,7 @@ function Home() {
             <form className="search">
                 <input
                     type="text"
-                    placeholder="Search"
+                    placeholder="Поиск"
                     className="search_input"
                     onChange={(event)=>setValue(event.target.value)}
                 ></input>
@@ -67,23 +67,23 @@ function Home() {
 
                     <div className="d-flex flex-column gap-1">
                         <div className="d-flex justify-content-between mt-1">
-                            <span>Company</span>
+                            <span>Компания</span>
                             <span>{vacancy.company_name_id.company_name}</span> 
                         </div>
                         <div className="d-flex justify-content-between">
-                            <span>Location</span>
+                            <span>Локация</span>
                             <span>{vacancy.location}</span>
                         </div>
                         <div className="d-flex justify-content-between">
-                            <span>Salary</span>
+                            <span>Зарплата</span>
                             <span>{vacancy.salary}</span>
                         </div>
                         <div className="d-flex justify-content-between">
-                            <span>Created On</span>
+                            <span>Дата объявления</span>
                             <span>{vacancy.creation_date}</span>
                         </div>
                         <div className="d-flex justify-content-between">
-                            <span>Last Date To Apply</span>
+                            <span>Доступна до</span>
                             <span>{vacancy.end_date}</span>
                         </div>
                     </div>
@@ -92,7 +92,7 @@ function Home() {
                         className="primary-outlined-btn w-100 mt-2"
                         onClick={() => navigate(`/job-description/${vacancy.id}`)}
                     >
-                        Apply Now
+                        Откликнуться
                     </button>
                 </div>
             </Col>

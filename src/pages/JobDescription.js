@@ -40,7 +40,7 @@ function JobDescription() {
           setAlreadyApplied(false);
         }
       } else {
-        message.error("Error loading application data");
+        console.log("Error loading application data");
       }
       
       await checkHasApplied();
@@ -87,7 +87,7 @@ function JobDescription() {
       console.log('after applying');
       dispatch(HideLoading());
       if (response.status === 201) {
-        message.success("Your application was successful.");
+        message.success("Ваш отклик отправлен работодателю.");
         navigate("/");
       } else {
         message.error("Something went wrong with your application.");
@@ -121,35 +121,35 @@ function JobDescription() {
           <Col span={18}>
             <div className="d-flex flex-column gap-1">
               <div className="d-flex justify-content-between mt-1">
-                <span>Company</span>
+                <span>Компания</span>
                 <span>{jobData.company_name_id.company_name}</span>
               </div>
               <div className="d-flex justify-content-between">
-                <span>Location</span>
+                <span>Локация</span>
                 <span>{jobData.location?.toUpperCase()}</span>
               </div>
               <div className="d-flex justify-content-between">
-                <span>Salary</span>
+                <span>Зарплата</span>
                 <span>{jobData.salary}</span>
               </div>
               <div className="d-flex justify-content-between">
-                <span>Skills</span>
+                <span>Навыки</span>
                 <span>{jobData.skills}</span>
               </div>
               <div className="d-flex justify-content-between">
-                <span>Experience</span>
+                <span>Опыт работы</span>
                 <span>{jobData.experience}</span>
               </div>
               <div className="d-flex justify-content-between">
-                <span>Job Type</span>
+                <span>Тип работы</span>
                 <span>{jobData.vacancy_type}</span>
               </div>
               <div className="d-flex justify-content-between">
-                <span>Posted On</span>
+                <span>Дата объявления</span>
                 <span>{jobData.start_date}</span>
               </div>
               <div className="d-flex justify-content-between">
-                <span>Last Date To Apply</span>
+                <span>Доступна до</span>
                 <span>{jobData.end_date}</span>
               </div>
               {/* <div className="d-flex justify-content-between">
@@ -158,14 +158,13 @@ function JobDescription() {
               </div> */}
             </div>
 
-            <h5 className="underline uppercase my-3">Job Description</h5>
+            <h5 className="underline uppercase my-3">Описание</h5>
             <span className="pt-2">{jobData.description}</span>
 
             {alreadyApplied && (
               <div className="already-applied">
                 <span>
-                  You have already applied for this job. You can view your
-                  application status in the applied jobs section.
+                Вы уже подали заявку на эту работу. Вы можете просмотреть статус своей заявки в разделе "Мои отклики".
                 </span>
               </div>
             )}
@@ -175,11 +174,11 @@ function JobDescription() {
                 className="primary-outlined-btn"
                 onClick={() => navigate("/")}
               >
-                CANCEL
+                Отмена
               </button>
               {!alreadyApplied && (
                 <button className="primary-contained-btn" onClick={applyNow}>
-                  APPLY NOW
+                  Откликнуться
                 </button>
               )}
             </div>

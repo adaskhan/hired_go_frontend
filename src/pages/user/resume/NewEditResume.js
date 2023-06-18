@@ -56,7 +56,7 @@ function NewEditResume() {
 
   return (
     <div>
-      <PageTitle title={'Create resume'} />
+      <PageTitle title={'Создать резюме'} />
       {resumeData && (
         <Form layout="vertical" onFinish={onFinish} initialValues={resumeData}>
           <div className="d-flex justify-content-end gap-2">
@@ -64,16 +64,16 @@ function NewEditResume() {
               className="primary-outlined-btn"
               onClick={() => navigate('/my-resumes')}
             > 
-              Cancel
+              Отмена
             </button>
             <button className="primary-contained-btn" type="submit">
-              Save
+              Сохранить
             </button>
           </div>
           <Row gutter={[10, 10]}>
             <Col span={12}>
               <Form.Item
-                label="Title"
+                label="Резюме"
                 name="title"
                 rules={[{ required: true, message: "required" }]}
               >
@@ -82,7 +82,7 @@ function NewEditResume() {
             </Col>
             <Col span={12}>
               <Form.Item 
-                label="Contacts"
+                label="Контакты"
                 name="contacts"
                 rules={[{ required: true, message: "required" }]}
               > 
@@ -91,7 +91,7 @@ function NewEditResume() {
             </Col>
             <Col span={24}>
               <Form.Item
-                label="Summary"
+                label="О себе"
                 name="summary"
                 rules={[{ required: true, message: "required" }]}
               >
@@ -100,7 +100,7 @@ function NewEditResume() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Skills"
+                label="Навыки"
                 name="skills"
                 rules={[{ required: true, message: "required" }]}
               >
@@ -109,7 +109,7 @@ function NewEditResume() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Languages"
+                label="Языки"
                 name="languages"
                 rules={[{ required: true, message: "required" }]}
               >
@@ -127,7 +127,7 @@ function NewEditResume() {
                         {...restField}
                         name={[name, "company"]}
                         rules={[{ required: true, message: "required" }]}
-                        label="Company"
+                        label="Компания"
                       >
                         <Input />
                       </Form.Item>
@@ -137,14 +137,14 @@ function NewEditResume() {
                         {...restField}
                         name={[name, "position"]}
                         rules={[{ required: true, message: "required" }]}
-                        label="Position"
+                        label="Позиция"
                       >
                         <Input />
                       </Form.Item>
                     </Col>
                     <Col span={5}>
                       <Form.Item
-                        label="Start Date"
+                        label="Дата начала"
                         name={[name, "start_date"]}
                         rules={[{ required: true, message: "required" }]}
                       >
@@ -153,7 +153,7 @@ function NewEditResume() {
                     </Col>
                     <Col span={5}>
                       <Form.Item
-                        label="End Date"
+                        label="Дата оканчания"
                         name={[name, "end_date"]}
                         rules={[{ required: true, message: "required" }]}
                       >
@@ -174,7 +174,7 @@ function NewEditResume() {
                       add();
                     }}
                   >
-                    ADD EXPERIENCE
+                    Добавить опыт работы
                   </button>
                 </Form.Item>
               </>
@@ -190,7 +190,7 @@ function NewEditResume() {
                         {...restField}
                         name={[name, 'degree']}
                         rules={[{ required: true, message: 'required' }]}
-                        label="Degree"
+                        label="Степень"
                       >
                         <Input />
                       </Form.Item>
@@ -200,14 +200,14 @@ function NewEditResume() {
                         {...restField}
                         name={[name, 'institution']}
                         rules={[{ required: true, message: 'required' }]}
-                        label="Institution"
+                        label="Учебное заведение"
                       >
                         <Input />
                       </Form.Item>
                     </Col>
                     <Col span={5}>
                       <Form.Item
-                        label="Start Date"
+                        label="Дата начала"
                         name={[name, "start_date"]}
                         rules={[{ required: true, message: "required" }]}
                       >
@@ -216,7 +216,7 @@ function NewEditResume() {
                     </Col>
                     <Col span={5}>
                       <Form.Item
-                        label="End Date"
+                        label="Дата оканчания"
                         name={[name, "end_date"]}
                         rules={[{ required: true, message: "required" }]}
                       >
@@ -237,7 +237,7 @@ function NewEditResume() {
                       add();
                     }}
                   >
-                    ADD EDUCATION
+                    Добавить место учебы
                   </button>
                 </Form.Item>
               </>

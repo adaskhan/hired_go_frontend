@@ -26,20 +26,20 @@ export const addNewResume = async (payload) => {
     if (response.status === 200 || response.status === 201) {
       return {
         success: true,
-        message: "Resume posted successfully",
+        message: "Резюме успешно добавлено",
       };
     } else {
       console.log(response.data);
       return {
         success: false,
-        message: response.data.error || "Something went wrong",
+        message: response.data.error || "Произошла ошибка",
       };
     }
   } catch (error) {
     console.error(error);  
     return {
       success: false,
-      message: error.message || "Something went wrong",
+      message: error.message || "Произошла ошибка",
     };
   }
 };
@@ -54,12 +54,12 @@ export const addNewResume = async (payload) => {
       });
       return {
         success: true,
-        message: "Resume updated successfully",
+        message: "Резюме было обновлено успешно",
       };
     } catch (error) {
       return {
         success: false,
-        message: "Something went wrong",
+        message: "Произошла ошибка",
       };
     }
   };
@@ -80,14 +80,14 @@ export const addNewResume = async (payload) => {
       } else {
         return {
           success: false,
-          message: "No such resume!",
+          message: "Резюме не найдено!",
         };
       }
     } catch (error) {
       console.error(error);
       return {
         success: false,
-        message: "Something went wrong",
+        message: "Произошла ошибка",
       };
     }
   };

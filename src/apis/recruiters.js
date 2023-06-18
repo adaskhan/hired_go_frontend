@@ -37,14 +37,14 @@ import {
         } else {
           return {
             success: false,
-            message: "No such recruiter!",
+            message: "Возникла ошибка!",
           };
         }
       } catch (error) {
         console.error(error);
         return {
           success: false,
-          message: "Something went wrong",
+          message: "Возникла ошибка",
         };
       }
   };
@@ -94,7 +94,7 @@ import {
     } catch (error) {
       return {
         success: false,
-        message: "Something went wrong",
+        message: "Возникла ошибка",
       };
     }
   };
@@ -117,20 +117,20 @@ import {
       if(response.status === 200) {
         return {
           success: true,
-          message: "Status updated successfully",
+          message: "Статус был успешно обновлен",
           data: response.data // if API returns the updated object
         };
       } else {
         return {
           success: false,
-          message: "Update failed",
+          message: "Обновление не было произведено",
         };
       }
     } catch (error) {
       console.log(error);
       return {
         success: false,
-        message: "Something went wrong",
+        message: "Произошла ошибка с обновлением",
       };
     }
 };

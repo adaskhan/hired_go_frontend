@@ -32,7 +32,7 @@ function Allusers() {
       if (response.success) {
         const updatedUsers = data.filter(user => user.id !== id);
         setData(updatedUsers);
-        message.success("User successfully deleted.");
+        message.success("Пользователь была успешно удалена.");
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -44,23 +44,23 @@ function Allusers() {
 
   const columns = [
     {
-      title: "Name",
+      title: "ФИО",
       dataIndex: "user_first_name",
     },
     {
-      title: "Email",
+      title: "Почта",
       dataIndex: "user_email",
     },
     {
-      title: "User Id",
+      title: "Идентификатор",
       dataIndex: "id",
     },
     {
-        title: "Status",
+        title: "Статус",
         dataIndex: "type",
     },
     {
-      title: "Action",
+      title: "Действие",
       dataIndex: "action",
       render: (text, record) => (
         <div className="d-flex gap-2 align-items-center">
@@ -69,7 +69,7 @@ function Allusers() {
               className="underline"
               onClick={() => deleteUser(record.id, "rejected")}
             >
-              Delete
+              Удалить
             </span>
           )}
         </div>
@@ -84,7 +84,7 @@ function Allusers() {
   return (
     <div>
       <div className="d-flex justify-content-between">
-        <PageTitle title="All Users" />
+        <PageTitle title="Все пользователи" />
       </div>
 
       <Table columns={columns} dataSource={data} />

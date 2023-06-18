@@ -24,19 +24,19 @@ function DefaultLayout({ children }) {
   const dispatch = useDispatch();
   const userMenu = [
     {
-      title: "Home",
+      title: "Главная",
       onClick: () => navigate("/"),
       icon: <i className="ri-home-7-line"></i>,
       path: "/",
     },
     {
-      title: "Applied Jobs",
+      title: "Мои отклики",
       onClick: () => navigate("/applied-jobs"),
       icon: <i className="ri-file-list-3-line"></i>,
       path: "/applied-jobs",
     },
     {
-      title: "Profile",
+      title: "Профиль",
       onClick: () => {
         navigate(`/profile/`);
       },
@@ -44,25 +44,25 @@ function DefaultLayout({ children }) {
       path: "/profile",
     },
     {
-      title: "Resumes",
+      title: "Мои резюме",
       onClick: () => navigate("/my-resumes/"),
       icon: <i className="ri-profile-line"></i>,
       path: "/my-resumes",
     },
     {
-      title: "Map",
+      title: "Карта",
       onClick: () => navigate("/map"),
       icon: <i className="ri-map-pin-line"></i>,
       path: "/map",
     },
     {
-      title: "Search",
+      title: "Поиск",
       onClick: () => window.location.href="http://127.0.0.1:8000/api/hired_fast/search/",
       icon: <i className="ri-search-line"></i>, // Change to the appropriate icon
       path: "http://127.0.0.1:8000/api/hired_fast/search/",
     },
     {
-      title: "Logout",
+      title: "Выйти",
       onClick: () => {
         localStorage.removeItem("user");
         navigate("/login");
@@ -75,13 +75,13 @@ function DefaultLayout({ children }) {
 
   const unAuthorized=[
     {
-      title: "Home",
+      title: "Главная",
       onClick: () => navigate("/"),
       icon: <i className="ri-home-7-line"></i>,
       path: "/",
     },
     {
-      title: "Map",
+      title: "Карта",
       onClick: () => navigate("/map"),
       icon: <i className="ri-map-pin-line"></i>,
       path: "/map",
@@ -91,31 +91,31 @@ function DefaultLayout({ children }) {
 
   const recruiterMenu=[
     {
-      title: "Home",
+      title: "Главная",
       onClick: () => navigate("/"),
       icon: <i className="ri-home-7-line"></i>,
       path: "/",
     },
     {
-      title: "Profile",
+      title: "Профиль",
       onClick: () => navigate("/profile"),
       icon: <i className="ri-file-list-3-line"></i>,
       path: "/profile",
     },
     {
-      title: "Posted Jobs",
+      title: "Мои вакансии",
       onClick: () => navigate("/posted-jobs"),
       icon: <i className="ri-file-list-3-line"></i>,
       path: "/posted-jobs",
     },
     {
-      title: "Map",
+      title: "Карта",
       onClick: () => navigate("/map"),
       icon: <i className="ri-map-pin-line"></i>,
       path: "/map",
     },
     {
-      title: "Logout",
+      title: "Выйти",
       onClick: () => {
         localStorage.removeItem("user");
         navigate("/login");
@@ -127,37 +127,37 @@ function DefaultLayout({ children }) {
 
   const adminMenu = [
     {
-      title: "Home",
+      title: "Главная",
       onClick: () => navigate("/"),
       icon: <i className="ri-home-7-line"></i>,
       path: "/",
     },
     {
-      title: "Jobs",
+      title: "Вакансии",
       onClick: () => navigate("/admin/jobs"),
       icon: <i className="ri-file-list-2-line"></i>,
       path: "/admin/jobs",
     },
     {
-      title: "Recruiters",
+      title: "Рекрутеры",
       onClick: () => navigate("/admin/recruiters"),
       icon: <i className="ri-user-follow-line"></i>,
       path: "/admin/recruiters",
     },
     {
-      title: "Users",
+      title: "Пользователи",
       onClick: () => navigate("/admin/users"),
       icon: <i className="ri-user-2-line"></i>,
       path: "/admin/users",
     },
     {
-      title: "Map",
+      title: "Карта",
       onClick: () => navigate("/map"),
       icon: <i className="ri-map-pin-line"></i>,
       path: "/map",
     },
     {
-      title: "Logout",
+      title: "Выйти",
       onClick: () => {
         localStorage.removeItem("user");
         navigate("/login");
@@ -221,7 +221,7 @@ function DefaultLayout({ children }) {
   };
   const items = [
     {
-      label: 'as User',
+      label: 'как пользователь',
       key: '1',
       icon: <UserOutlined />,
       onClick: () => {
@@ -231,7 +231,7 @@ function DefaultLayout({ children }) {
       path: "/login",
     },
     {
-      label: 'as Recruiter',
+      label: 'как рекрутер',
       key: '2',
       icon: <UserOutlined />,
       onClick: () => {
@@ -241,7 +241,7 @@ function DefaultLayout({ children }) {
       path: "/recruiter_login",
     },
     {
-      label: 'as Admin',
+      label: 'как админ',
       key: '3',
       icon: <UserOutlined />,
       danger: true,
@@ -321,7 +321,7 @@ function DefaultLayout({ children }) {
               <Dropdown menu={menuProps}>
                 <Button>
                   <Space>
-                    Sign in
+                    Войти
                   <DownOutlined />
                   </Space>
                 </Button>

@@ -63,13 +63,13 @@ function NewEditJob() {
 
   return (
     <div>
-      <PageTitle title={params.id ? "Edit Job" : "Add New Job Post"} />
+      <PageTitle title={params.id ? "Изменить вакансию" : "Объявить о вакансии"} />
       {jobData && (
         <Form layout="vertical" onFinish={onFinish} initialValues={jobData}>
         <Row gutter={[10, 10]}>
           <Col span={12}>
             <Form.Item
-              label="Title"
+              label="Вакансия"
               name="title"
               rules={[{ required: true, message: "required" }]}
             >
@@ -78,12 +78,12 @@ function NewEditJob() {
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Tech Stack"
+              label="Стэк технологии"
               name="tech_stack"
               rules={[{ required: true, message: "required" }]}
             >
               <select name="" id="">
-              <option value="">Tech Stack</option>
+              <option value="">Стэк</option>
               <option value="Python">Python</option>
               <option value="JavaScript">Java</option>
               <option value="Ruby">Ruby</option>
@@ -100,28 +100,28 @@ function NewEditJob() {
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Location"
+              label="Локация"
               name="location"
               rules={[{ required: true, message: "required" }]}
             >
               <select name="" id="">
-              <option value="">Location</option>
-              <option value="Almaty">Almaty</option>
-              <option value="Astana">Astana</option>
-              <option value="Kostanai">Kostanai</option>
-              <option value="Kyzylorda">Kyzylorda</option>
-              <option value="Taraz">Taraz</option>
-              <option value="Shymkent">Shymkent</option>
-              <option value="Semei">Semei</option>
-              <option value="Pavlodar">Pavlodar</option>
-              <option value="Aktobe">Aktobe</option>
-              <option value="Kokshetau">Kokshetau</option>
+              <option value="">Локация</option>
+              <option value="Almaty">Алматы</option>
+              <option value="Astana">Астана</option>
+              <option value="Kostanai">Костанай</option>
+              <option value="Kyzylorda">Кызылорда</option>
+              <option value="Taraz">Тараз</option>
+              <option value="Shymkent">Шымкент</option>
+              <option value="Semei">Семей</option>
+              <option value="Pavlodar">Павлодар</option>
+              <option value="Aktobe">Актобе</option>
+              <option value="Kokshetau">Кокшетау</option>
               </select>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Company Name"
+              label="Компания"
               name="company_name_id"
               rules={[{ required: true, message: "required" }]}
             >
@@ -130,7 +130,7 @@ function NewEditJob() {
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Salary"
+              label="Заработная плата"
               name="salary"
               rules={[{ required: true, message: "required" }]}
             >
@@ -139,20 +139,21 @@ function NewEditJob() {
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Job Type"
+              label="Тип работы"
               name="vacancy_type"
               rules={[{ required: true, message: "required" }]}
             >
               <select name="" id="">
                 <option value="">Select</option>
-                <option value="Office">Office</option>
-                <option value="Remote">Remote</option>
+                <option value="Office">Офис</option>
+                <option value="Remote">Удаленка</option>
+                <option value="Remote">Гибрид</option>
               </select>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Start Date"
+              label="Доступно с"
               name="start_date"
               rules={[{ required: true, message: "required" }]}
             >
@@ -161,7 +162,7 @@ function NewEditJob() {
           </Col>
           <Col span={6}>
             <Form.Item
-              label="End Date"
+              label="Доступно до"
               name="end_date"
               rules={[{ required: true, message: "required" }]}
             >
@@ -170,7 +171,7 @@ function NewEditJob() {
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Experience"
+              label="Опыт работы"
               name="experience"
               rules={[{ required: true, message: "required" }]}
             >
@@ -179,7 +180,7 @@ function NewEditJob() {
           </Col>
           <Col span={12}>
             <Form.Item
-              label="Skills"
+              label="Навыки"
               name="skills"
               rules={[{ required: true, message: "required" }]}
             >
@@ -189,7 +190,7 @@ function NewEditJob() {
 
           <Col span={24}>
             <Form.Item
-              label="Job Description"
+              label="Описание"
               name="description"
               rules={[{ required: true, message: "required" }]}
             >
@@ -203,10 +204,10 @@ function NewEditJob() {
             className="primary-outlined-btn"
             onClick={() => navigate("/posted-jobs")}
           >
-            Cancel
+            Отмена
           </button>
           <button className="primary-contained-btn" type="submit">
-            Save
+            Сохранить
           </button>
         </div>
       </Form>
