@@ -78,24 +78,43 @@ function AppliedCandidates({
   
 
   const changeStatus = async (applicationData, status) => {
+    const userr = JSON.parse(localStorage.getItem("user"));
     try {
       dispatch(ShowLoading());
-      const response = await changeApplicationStatus({
-        ...applicationData,
-        status,
-      });
+  
+      let response;
+      if (status === "Accepted") {
+        
+        response = await axios.post(
+          `http://localhost:8000/api/invite_candidate/${applicationData.id}/`, {
+            headers: {
+              Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+            },
+          });
+      } else if (status === "Rejected") {
+        response = await axios.post(
+          `http://localhost:8000/api/refuse_candidate/${applicationData.id}/`, {
+            headers: {
+              Authorization: `Bearer ${userr.access}`, // Pass the access token in the headers
+            },
+          }
+        );
+      }
+  
       dispatch(HideLoading());
-      if (response.success) {
-        message.success(response.message);
+  
+      if (response.status === 200) {
+        message.success("Application status changed successfully");
         reloadData(applicationData.jobId);
       } else {
-        message.error(response.message);
+        message.error("Failed to change application status");
       }
     } catch (error) {
       message.error("Something went wrong");
       dispatch(HideLoading());
     }
   };
+  
 
   const columns = [
     {
@@ -106,10 +125,11 @@ function AppliedCandidates({
       title: "Name",
       dataIndex: ["applicant", "full_name"],
       render: (text, record) => (
-        <span className="title-link" onClick={() => openModal(record.resume.id)}>
+        <span key={record.id} className="title-link" onClick={() => openModal(record.resume.id)}>
           {text}
         </span>
       ),
+      
     },
     {
       title: "Phone",
@@ -131,23 +151,27 @@ function AppliedCandidates({
       title: "Action",
       dataIndex: "action",
       render: (text, record) => {
-        return (
-          <div>
-            {record.status === "pending" && (
-              <>
-                <span className="underline" onClick={() => changeStatus(record, "approved")}>
-                  Approve
-                </span>
-                <span className="underline mx-2" onClick={() => changeStatus(record, "rejected")}>
-                  Reject
-                </span>
-              </>
-            )}
-          </div>
-        );
+          return (
+            <div>
+              <span
+                className="underline"
+                onClick={() => changeStatus(record, "Accepted")}
+              >
+                Accept
+              </span>
+              <span
+                className="underline mx-2"
+                onClick={() => changeStatus(record, "Rejected")}
+              >
+                Reject
+              </span>
+            </div>
+          );
+        
       },
     },
   ];
+  
 
   const fetchResumeData = async (id) => {
     try {

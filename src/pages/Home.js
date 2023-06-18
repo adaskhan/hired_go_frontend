@@ -1,5 +1,5 @@
 import { Col, message, Row } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllVacancies } from "../apis/jobs";
@@ -31,14 +31,33 @@ function Home() {
     }
   };
 
+  const[value,setValue]=useState("");
+
+
+  const filteredVacancies = data.filter(vacancy => {
+    return vacancy.title && vacancy.title.toLowerCase().includes(value.toLowerCase());
+  });
+  
+
   useEffect(() => {
     getData();
   }, []);
   return (
     <div>
+        <div className="Searchform" style={{width:'50vw'}}>
+            <form className="search">
+                <input
+                    type="text"
+                    placeholder="Search"
+                    className="search_input"
+                    onChange={(event)=>setValue(event.target.value)}
+                ></input>
+            </form>
+        </div>
+        <br></br>
       <Filters filters={filters} setFilters={setFilters} setData={setData} />
       <Row gutter={[15, 15]} className="mt-3">
-      {data.map((vacancy) => (
+      {filteredVacancies.map((vacancy) => (
             <Col span={8} key={vacancy.id}>
                 <div className="job-card">
                     <h3 className="uppercase">{vacancy.title}</h3>
