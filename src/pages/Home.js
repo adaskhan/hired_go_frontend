@@ -17,6 +17,8 @@ function Home() {
     experience: "",
   });
 
+  
+
   const getData = async () => {
     try {
         dispatch(ShowLoading());
@@ -34,7 +36,7 @@ function Home() {
   const[value,setValue]=useState("");
 
 
-  const filteredVacancies = data.filter(vacancy => {
+  const searchVacancies = data.filter(vacancy => {
     return vacancy.title && vacancy.title.toLowerCase().includes(value.toLowerCase());
   });
   
@@ -44,7 +46,7 @@ function Home() {
   }, []);
   return (
     <div>
-        <div className="Searchform" style={{width:'50vw'}}>
+        <div className="Searchform" style={{width:'30vw'}}>
             <form className="search">
                 <input
                     type="text"
@@ -57,7 +59,7 @@ function Home() {
         <br></br>
       <Filters filters={filters} setFilters={setFilters} setData={setData} />
       <Row gutter={[15, 15]} className="mt-3">
-      {filteredVacancies.map((vacancy) => (
+      {searchVacancies.map((vacancy) => (
             <Col span={8} key={vacancy.id}>
                 <div className="job-card">
                     <h3 className="uppercase">{vacancy.title}</h3>

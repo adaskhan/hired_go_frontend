@@ -83,11 +83,18 @@ function NewEditJob() {
               rules={[{ required: true, message: "required" }]}
             >
               <select name="" id="">
-                <option value="">Select</option>
-                <option value="Python">Python</option>
-                <option value="Java">Java</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="JavaScript">Other</option>
+              <option value="">Tech Stack</option>
+              <option value="Python">Python</option>
+              <option value="JavaScript">Java</option>
+              <option value="Ruby">Ruby</option>
+              <option value="Java">Java</option>
+              <option value="PHP">PHP</option>
+              <option value="Go">Go</option>
+              <option value="Cpp">C++</option>
+              <option value="Csh">C#</option>
+              <option value="Swift">Swift</option>
+              <option value="Kotlin">Kotlin</option>
+              <option value="TypeScript">TypeScript</option>
               </select>
             </Form.Item>
           </Col>
@@ -98,10 +105,17 @@ function NewEditJob() {
               rules={[{ required: true, message: "required" }]}
             >
               <select name="" id="">
-                <option value="">Select</option>
-                <option value="Almaty">Almaty</option>
-                <option value="Astana">Astana</option>
-                <option value="Kokshetau">Kokshetau</option>
+              <option value="">Location</option>
+              <option value="Almaty">Almaty</option>
+              <option value="Astana">Astana</option>
+              <option value="Kostanai">Kostanai</option>
+              <option value="Kyzylorda">Kyzylorda</option>
+              <option value="Taraz">Taraz</option>
+              <option value="Shymkent">Shymkent</option>
+              <option value="Semei">Semei</option>
+              <option value="Pavlodar">Pavlodar</option>
+              <option value="Aktobe">Aktobe</option>
+              <option value="Kokshetau">Kokshetau</option>
               </select>
             </Form.Item>
           </Col>

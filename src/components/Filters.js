@@ -12,12 +12,15 @@ function Filters({ filters, setFilters, setData }) {
       dispatch(ShowLoading());
       const response = await getAllVacancies(filtersTemp);
       if (response.success) {
-        const approvedJobs = response.data.filter(
-          (job) => job.status === "approved"
-        );
+        const approvedJobs = response.data.filter((job) => {
+          const isLocationMatch =
+            !filtersTemp.location || job.location === filtersTemp.location;
+          const isIndustryMatch =
+            !filtersTemp.industry || job.tech_stack.includes(filtersTemp.industry);
+          return isLocationMatch && isIndustryMatch;
+        });
         setData(approvedJobs);
       }
-     
       dispatch(HideLoading());
     } catch (error) {
       dispatch(HideLoading());
@@ -28,7 +31,7 @@ function Filters({ filters, setFilters, setData }) {
   
   return (
     <div>
-      <div className="d-flex justify-content-start gap-2">
+      <div className="d-flex justify-content-start gap-2"  style={{width: '60vw'}}>
         <select
           name=""
           id=""
@@ -38,6 +41,13 @@ function Filters({ filters, setFilters, setData }) {
           <option value="">Location</option>
           <option value="Almaty">Almaty</option>
           <option value="Astana">Astana</option>
+          <option value="Kostanai">Kostanai</option>
+          <option value="Kyzylorda">Kyzylorda</option>
+          <option value="Taraz">Taraz</option>
+          <option value="Shymkent">Shymkent</option>
+          <option value="Semei">Semei</option>
+          <option value="Pavlodar">Pavlodar</option>
+          <option value="Aktobe">Aktobe</option>
           <option value="Kokshetau">Kokshetau</option>
         </select>
         <select
@@ -46,26 +56,20 @@ function Filters({ filters, setFilters, setData }) {
           value={filters.industry}
           onChange={(e) => setFilters({ ...filters, industry: e.target.value })}
         >
-          <option value="">Tech stack</option>
+          <option value="">Tech Stack</option>
           <option value="Python">Python</option>
+          <option value="JavaScript">Java</option>
+          <option value="Ruby">Ruby</option>
           <option value="Java">Java</option>
-          <option value="JavaScript">JavaScript</option>
+          <option value="PHP">PHP</option>
+          <option value="Go">Go</option>
+          <option value="Cpp">C++</option>
+          <option value="Csh">C#</option>
+          <option value="Swift">Swift</option>
+          <option value="Kotlin">Kotlin</option>
+          <option value="TypeScript">TypeScript</option>
         </select>
 
-        <select
-          name=""
-          id=""
-          value={filters.experience}
-          onChange={(e) =>
-            setFilters({ ...filters, experience: e.target.value })
-          }
-        >
-          <option value="">Experience</option>
-          <option value="0">Fresher</option>
-          <option value="1">1 Year</option>
-          <option value="2">2 Years</option>
-          <option value="3">3</option>
-        </select>
         <button className="primary-outlined-btn" onClick={() => {
           filterData({
             location:"",
