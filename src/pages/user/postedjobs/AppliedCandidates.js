@@ -85,9 +85,28 @@ function AppliedCandidates({
         status,
       });
       dispatch(HideLoading());
+  
+      let url = "";
+      if (status === "invite") {
+        url = `http://127.0.0.1:8000/api/invite_candidate/${applicationData.id}/`;
+      } else {
+        url = `http://127.0.0.1:8000/api/refuse_candidate/${applicationData.id}/`;
+      }
+  
+      const userr = JSON.parse(localStorage.getItem("user"));
+      await axios.post(
+        url,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${userr.access}`,
+          },
+        }
+      );
+  
       if (response.success) {
         message.success(response.message);
-        reloadData(applicationData.jobId);
+        reloadData(applicationData.jobId);  
       } else {
         message.error(response.message);
       }
@@ -96,6 +115,7 @@ function AppliedCandidates({
       dispatch(HideLoading());
     }
   };
+  
 
   const columns = [
     {
@@ -133,16 +153,30 @@ function AppliedCandidates({
       render: (text, record) => {
         return (
           <div>
-            {record.status === "pending" && (
+            {( record.application_status == "pending" &&
               <>
-                <span className="underline" onClick={() => changeStatus(record, "approved")}>
-                  Approve
+                <span className="underline" onClick={() => changeStatus(record, "invite")}>
+                  Invite
                 </span>
-                <span className="underline mx-2" onClick={() => changeStatus(record, "rejected")}>
-                  Reject
+                <span className="underline mx-2" onClick={() => changeStatus(record, "refuse")}>
+                  Refuse
                 </span>
               </>
-            )}
+            )} 
+            {( record.application_status == "invited" &&
+              <>
+                <span className="underline">
+                  Invited
+                </span>
+              </>
+            )} 
+            {( record.application_status == "refused" &&
+              <>
+                <span className="underline">
+                  Refused
+                </span>
+              </>
+            )} 
           </div>
         );
       },
